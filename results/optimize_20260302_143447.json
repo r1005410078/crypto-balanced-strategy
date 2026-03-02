@@ -1,0 +1,132 @@
+{
+  "searched_candidates": 5184,
+  "symbols": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "SOLUSDT",
+    "BNBUSDT",
+    "LINKUSDT"
+  ],
+  "regime_symbol": "BTCUSDT",
+  "fold_days": 120,
+  "fold_count": 2,
+  "jobs": 2,
+  "best": {
+    "score": 9.1036,
+    "params": {
+      "lb_fast": 20,
+      "lb_slow": 60,
+      "sma_filter": 120,
+      "k": 1,
+      "atr_mult": 2.8,
+      "max_w_core": 0.6,
+      "max_w_alt": 0.35,
+      "vol_lb": 20,
+      "target_vol": 0.35,
+      "rebalance_every": 3,
+      "regime_sma": 200,
+      "risk_off_exposure": 0.3,
+      "atr_period": 14,
+      "fee": 0.001,
+      "slip": 0.0005
+    },
+    "insample": {
+      "cagr_pct": 32.07,
+      "max_drawdown_pct": -19.67,
+      "sharpe": 1.264,
+      "avg_daily_turnover": 0.0396
+    },
+    "oos": {
+      "fold_count": 2,
+      "return_pct_list": [
+        51.95,
+        -4.14
+      ],
+      "cagr_pct_median": 257.0,
+      "sharpe_median": 4.079,
+      "max_drawdown_pct_worst": -7.54,
+      "avg_daily_turnover_median": 0.0384,
+      "positive_fold_rate": 0.5
+    }
+  },
+  "top": [
+    {
+      "score": 9.1036,
+      "params": {
+        "lb_fast": 20,
+        "lb_slow": 60,
+        "sma_filter": 120,
+        "k": 1,
+        "atr_mult": 2.8,
+        "max_w_core": 0.6,
+        "max_w_alt": 0.35,
+        "vol_lb": 20,
+        "target_vol": 0.35,
+        "rebalance_every": 3,
+        "regime_sma": 200,
+        "risk_off_exposure": 0.3,
+        "atr_period": 14,
+        "fee": 0.001,
+        "slip": 0.0005
+      },
+      "insample": {
+        "cagr_pct": 32.07,
+        "max_drawdown_pct": -19.67,
+        "sharpe": 1.264,
+        "avg_daily_turnover": 0.0396
+      },
+      "oos": {
+        "fold_count": 2,
+        "return_pct_list": [
+          51.95,
+          -4.14
+        ],
+        "cagr_pct_median": 257.0,
+        "sharpe_median": 4.079,
+        "max_drawdown_pct_worst": -7.54,
+        "avg_daily_turnover_median": 0.0384,
+        "positive_fold_rate": 0.5
+      }
+    },
+    {
+      "score": 9.1001,
+      "params": {
+        "lb_fast": 20,
+        "lb_slow": 60,
+        "sma_filter": 120,
+        "k": 1,
+        "atr_mult": 2.8,
+        "max_w_core": 0.6,
+        "max_w_alt": 0.35,
+        "vol_lb": 20,
+        "target_vol": 0.35,
+        "rebalance_every": 3,
+        "regime_sma": 200,
+        "risk_off_exposure": 0.4,
+        "atr_period": 14,
+        "fee": 0.001,
+        "slip": 0.0005
+      },
+      "insample": {
+        "cagr_pct": 32.13,
+        "max_drawdown_pct": -19.82,
+        "sharpe": 1.265,
+        "avg_daily_turnover": 0.0398
+      },
+      "oos": {
+        "fold_count": 2,
+        "return_pct_list": [
+          51.94,
+          -4.14
+        ],
+        "cagr_pct_median": 256.9,
+        "sharpe_median": 4.078,
+        "max_drawdown_pct_worst": -7.54,
+        "avg_daily_turnover_median": 0.0387,
+        "positive_fold_rate": 0.5
+      }
+    }
+  ],
+  "updated_profile": null,
+  "elapsed_sec": 254.81
+}
