@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.crypto-balanced-strategy.auto</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/python3</string>
+    <string>/Users/REPLACE_ME/.agents/skills/crypto-balanced-strategy/scripts/auto_daemon.py</string>
+    <string>--run-at</string>
+    <string>08:05</string>
+    <string>--live</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/REPLACE_ME/.agents/skills/crypto-balanced-strategy</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>OKX_API_KEY</key>
+    <string>REPLACE_ME</string>
+    <key>OKX_API_SECRET</key>
+    <string>REPLACE_ME</string>
+    <key>OKX_API_PASSPHRASE</key>
+    <string>REPLACE_ME</string>
+    <key>AUTO_TRADING_ENABLED</key>
+    <string>true</string>
+  </dict>
+
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/crypto-balanced-strategy-auto.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/crypto-balanced-strategy-auto.err.log</string>
+</dict>
+</plist>

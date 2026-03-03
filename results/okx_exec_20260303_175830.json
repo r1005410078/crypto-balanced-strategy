@@ -1,0 +1,84 @@
+{
+  "generated_at": "2026-03-03T17:58:30.369060",
+  "mode": "LIVE",
+  "switch_source": "file:/tmp/switch_live_test_5usdt.json",
+  "active_profile": "manual_test_5usdt",
+  "execution_mode": "deploy",
+  "target_alloc": {
+    "BTC": 1.0,
+    "USDT": 0.0
+  },
+  "funding_transfer": {
+    "enabled": false,
+    "status": "DISABLED",
+    "funding_usdt_before": 0.0,
+    "planned_transfer_usdt": 0.0,
+    "transfer": null
+  },
+  "balances": {
+    "USDT": 595.535776336,
+    "BTC": 2.082e-09
+  },
+  "prices": {
+    "BTC": 66640.1
+  },
+  "spreads_bps": {
+    "BTC": 0.015
+  },
+  "price_errors": [],
+  "plan": {
+    "equity_usdt": 595.535915,
+    "current_values_usdt": {
+      "BTC": 0.000139,
+      "USDT": 595.535776
+    },
+    "target_values_usdt": {
+      "BTC": 595.535915,
+      "USDT": 0.0
+    },
+    "diffs_usdt": {
+      "BTC": 595.535776,
+      "USDT": -595.535776
+    },
+    "current_weights": {
+      "BTC": 0.0,
+      "USDT": 1.0
+    },
+    "target_weights": {
+      "BTC": 1.0,
+      "USDT": 0.0
+    },
+    "orders": [
+      {
+        "symbol": "BTC",
+        "inst_id": "BTC-USDT",
+        "side": "buy",
+        "notional_usdt": 5.0,
+        "size": 5.0,
+        "spread_bps": 0.02
+      }
+    ],
+    "skipped": []
+  },
+  "execution": [
+    {
+      "status": "SUBMITTED",
+      "order": {
+        "symbol": "BTC",
+        "inst_id": "BTC-USDT",
+        "side": "buy",
+        "notional_usdt": 5.0,
+        "size": 5.0,
+        "spread_bps": 0.02
+      },
+      "exchange": {
+        "clOrdId": "cbs177253190901",
+        "ordId": "3356433378737315840",
+        "sCode": "0",
+        "sMsg": "Order placed",
+        "tag": "",
+        "ts": "1772531909625"
+      }
+    }
+  ]
+}

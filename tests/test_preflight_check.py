@@ -53,10 +53,14 @@ class PreflightCheckTests(unittest.TestCase):
             (root / "scripts" / "profile_switcher.py").write_text("x=1\n")
             (root / "scripts" / "okx_auto_executor.py").write_text("x=1\n")
             (root / "scripts" / "trade_decision_scorecard.py").write_text("x=1\n")
+            (root / "scripts" / "auto_cycle.py").write_text("x=1\n")
+            (root / "scripts" / "auto_daemon.py").write_text("x=1\n")
+            (root / "scripts" / "auto_tier_cycle.py").write_text("x=1\n")
+            (root / "scripts" / "health_check_dryrun.py").write_text("x=1\n")
 
             out = run_preflight(root, check_okx=False)
             self.assertTrue(out["summary"]["ready_core"])
-            self.assertGreaterEqual(out["summary"]["counts"]["WARN"], 1)
+            self.assertEqual(out["summary"]["counts"]["FAIL"], 0)
 
 
 if __name__ == "__main__":

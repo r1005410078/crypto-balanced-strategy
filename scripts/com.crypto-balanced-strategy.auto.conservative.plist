@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.crypto-balanced-strategy.auto</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/python3</string>
+    <string>/Users/rongts/.agents/skills/crypto-balanced-strategy/scripts/auto_cycle.py</string>
+    <string>--live</string>
+    <string>--auto-transfer-usdt</string>
+    <string>--funding-reserve-usdt</string>
+    <string>100</string>
+    <string>--min-transfer-usdt</string>
+    <string>10</string>
+    <string>--max-risk-exposure-pct</string>
+    <string>60</string>
+    <string>--max-total-order-usdt</string>
+    <string>400</string>
+    <string>--max-order-count</string>
+    <string>4</string>
+    <string>--max-price-errors</string>
+    <string>0</string>
+    <string>--max-daily-loss-pct</string>
+    <string>1.5</string>
+    <string>--kill-switch-file</string>
+    <string>/Users/rongts/.agents/skills/crypto-balanced-strategy/results/kill_switch</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/rongts/.agents/skills/crypto-balanced-strategy</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>OKX_API_KEY</key>
+    <string>REPLACE_ME</string>
+    <key>OKX_API_SECRET</key>
+    <string>REPLACE_ME</string>
+    <key>OKX_API_PASSPHRASE</key>
+    <string>REPLACE_ME</string>
+    <key>AUTO_TRADING_ENABLED</key>
+    <string>true</string>
+  </dict>
+
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>8</integer>
+    <key>Minute</key>
+    <integer>5</integer>
+  </dict>
+
+  <key>RunAtLoad</key>
+  <false/>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/crypto-balanced-strategy-auto.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/crypto-balanced-strategy-auto.err.log</string>
+</dict>
+</plist>

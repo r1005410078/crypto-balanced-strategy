@@ -1,0 +1,80 @@
+{
+  "generated_at": "2026-03-03T18:02:46.061166",
+  "symbol": "BTCUSDT",
+  "base_symbol": "BTC",
+  "inst_id": "BTC-USDT",
+  "notional_usdt": 1.0,
+  "max_spread_bps": 50.0,
+  "trade_usdt": 590.53643603,
+  "checks": [
+    {
+      "name": "okx_auth",
+      "status": "PASS",
+      "message": "Auth success. trade_usdt=590.536436"
+    },
+    {
+      "name": "market_ticker",
+      "status": "PASS",
+      "message": "BTC-USDT price=66521.700000 spread_bps=0.0150"
+    },
+    {
+      "name": "market_spread",
+      "status": "PASS",
+      "message": "spread_bps 0.0150 within max_spread_bps 50.0000"
+    },
+    {
+      "name": "dryrun_plan",
+      "status": "PASS",
+      "message": "Buy plan ready: BTC notional=1.0"
+    }
+  ],
+  "ticker": {
+    "inst_id": "BTC-USDT",
+    "price": 66521.7,
+    "bid": 66521.6,
+    "ask": 66521.7,
+    "spread_bps": 0.015032699879102347
+  },
+  "plan": {
+    "equity_usdt": 595.522042,
+    "current_values_usdt": {
+      "BTC": 4.985606,
+      "USDT": 590.536436
+    },
+    "target_values_usdt": {
+      "BTC": 595.522042,
+      "USDT": 0.0
+    },
+    "diffs_usdt": {
+      "BTC": 590.536436,
+      "USDT": -590.536436
+    },
+    "current_weights": {
+      "BTC": 0.008372,
+      "USDT": 0.991628
+    },
+    "target_weights": {
+      "BTC": 1.0,
+      "USDT": 0.0
+    },
+    "orders": [
+      {
+        "symbol": "BTC",
+        "inst_id": "BTC-USDT",
+        "side": "buy",
+        "notional_usdt": 1.0,
+        "size": 1.0,
+        "spread_bps": 0.02
+      }
+    ],
+    "skipped": []
+  },
+  "summary": {
+    "overall": "PASS",
+    "counts": {
+      "PASS": 4,
+      "WARN": 0,
+      "FAIL": 0
+    }
+  }
+}

@@ -18,6 +18,13 @@ Use this skill for: 策略设计、反复回测、参数优化、当前仓位信
 - `scripts/tune_risk_layer.py`: constrained risk-parameter optimizer for switch layer profiles
 - `scripts/daily_execution_report.py`: one-command daily report (profile + action checklist + guardrails)
 - `scripts/okx_auto_executor.py`: OKX spot execution bridge (reads latest signal, builds rebalance plan, dry-run/live execution with guardrails)
+- `scripts/auto_state.py`: unattended cycle state/idempotency/lock helpers
+- `scripts/risk_guard.py`: unattended live-trading risk gates and circuit-breakers
+- `scripts/notifier.py`: webhook notification helper for unattended runs
+- `scripts/auto_cycle.py`: one-shot unattended cycle (switch -> transfer -> plan -> risk gate -> execute -> persist -> notify)
+- `scripts/auto_daemon.py`: scheduler/daemon wrapper for unattended cycles
+- `scripts/auto_tier_cycle.py`: adaptive tier wrapper (conservative/balanced/aggressive auto-switch + auto_cycle execution)
+- `scripts/health_check_dryrun.py`: daily connectivity health check (1 USDT dry-run plan, no live order)
 - `scripts/trade_decision_scorecard.py`: trade-decision scorecard (fills + realized PnL + cost/discipline scoring + strategy-context recommendations)
 - `scripts/preflight_check.py`: portability self-check (python/version/files/env/OKX read permission)
 - `profiles.json`: parameter profiles (`stable`, `stable_short_balanced`, `stable_shield`, ...)
@@ -31,6 +38,11 @@ Use this skill for: 策略设计、反复回测、参数优化、当前仓位信
 - `tests/test_multi_strategy.py`: ensemble scoring/allocation regression tests
 - `tests/test_governance.py`: governance decision regression tests
 - `tests/test_profile_switcher.py`: profile-switch rule and confirmation regression tests
+- `tests/test_auto_state.py`: unattended state/idempotency regression tests
+- `tests/test_risk_guard.py`: unattended risk-gate regression tests
+- `tests/test_auto_cycle.py`: unattended cycle helper/status regression tests
+- `tests/test_auto_tier_cycle.py`: adaptive tier decision regression tests
+- `tests/test_health_check_dryrun.py`: health check summary/normalization regression tests
 
 ## Dependencies (Portable Install)
 
@@ -230,6 +242,66 @@ export OKX_API_PASSPHRASE=...
 3.9 Generate trade-decision scorecard (JSON + Markdown):
 ```bash
 python3 scripts/trade_decision_scorecard.py --format both
+```
+
+3.10 Unattended one-shot cycle (recommended before daemon):
+```bash
+# Dry-run unattended cycle (includes switch, plan, risk gates, idempotency state)
+python3 scripts/auto_cycle.py
+
+# Live unattended cycle (with optional auto transfer from funding -> trading)
+python3 scripts/auto_cycle.py --live --auto-transfer-usdt
+```
+
+3.11 Run unattended daemon scheduler:
+```bash
+# Daily run at local 08:05
+python3 scripts/auto_daemon.py --run-at 08:05 --live --auto-transfer-usdt
+
+# Or fixed interval
+python3 scripts/auto_daemon.py --interval-minutes 60 --live --auto-transfer-usdt
+```
+
+3.12 Launchd deployment (macOS, one run daily at 08:05):
+```bash
+# 1) copy and edit env keys inside plist
+cp scripts/com.crypto-balanced-strategy.auto.balanced.plist ~/Library/LaunchAgents/com.crypto-balanced-strategy.auto.plist
+
+# 2) load (or reload)
+launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.crypto-balanced-strategy.auto.plist 2>/dev/null || true
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.crypto-balanced-strategy.auto.plist
+launchctl enable gui/$(id -u)/com.crypto-balanced-strategy.auto
+launchctl kickstart -k gui/$(id -u)/com.crypto-balanced-strategy.auto
+
+# 3) check
+launchctl print gui/$(id -u)/com.crypto-balanced-strategy.auto
+tail -n 50 /tmp/crypto-balanced-strategy-auto.out.log
+tail -n 50 /tmp/crypto-balanced-strategy-auto.err.log
+```
+
+One-command install/reload (read API keys from current shell env):
+```bash
+export OKX_API_KEY=...
+export OKX_API_SECRET=...
+export OKX_API_PASSPHRASE=...
+bash scripts/install_launchd_agent.sh balanced
+# or
+bash scripts/install_launchd_agent.sh conservative
+bash scripts/install_launchd_agent.sh aggressive
+bash scripts/install_launchd_agent.sh adaptive
+```
+
+3.13 Adaptive tier auto-switch run (recommended unattended mode):
+```bash
+# Auto promote conservative -> balanced after 2 deploy days with normal risk
+# Optional aggressive promotion after 5 stable deploy days
+python3 scripts/auto_tier_cycle.py --live --promote-days 2 --allow-aggressive --aggressive-promote-days 5
+```
+
+3.14 Daily dry-run health check (no real orders):
+```bash
+# Connectivity/auth + market ticker + 1 USDT dry-run plan
+python3 scripts/health_check_dryrun.py --symbol BTCUSDT --notional-usdt 1 --format text
 ```
 
 Output:

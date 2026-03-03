@@ -397,6 +397,35 @@ class OkxClient:
                 out[ccy] = out.get(ccy, 0.0) + avail
         return out
 
+    def get_funding_balances(self, ccy=None) -> dict:
+        params = {}
+        if ccy:
+            params["ccy"] = str(ccy).upper()
+        rows = self._request("GET", "/api/v5/asset/balances", params=params, auth=True)
+        out = {}
+        for r in rows:
+            sym = str(r.get("ccy", "")).upper()
+            if not sym:
+                continue
+            avail = _safe_float(r.get("availBal"), 0.0)
+            if avail <= 0:
+                avail = _safe_float(r.get("bal"), 0.0)
+            if avail <= 0:
+                continue
+            out[sym] = out.get(sym, 0.0) + avail
+        return out
+
+    def transfer_funding_to_trading(self, ccy: str, amount: float):
+        payload = {
+            "ccy": str(ccy).upper(),
+            "amt": _format_num(amount, 8),
+            "from": "6",   # Funding account
+            "to": "18",    # Trading account
+            "type": "0",
+        }
+        rows = self._request("POST", "/api/v5/asset/transfer", payload=payload, auth=True)
+        return rows[0] if rows else {"result": "ok"}
+
     def get_ticker(self, inst_id: str) -> dict:
         rows = self._request("GET", "/api/v5/market/ticker", params={"instId": inst_id}, auth=False)
         if not rows:
@@ -471,6 +500,10 @@ def main():
     p.add_argument("--max-spread-bps", type=float, default=20.0)
     p.add_argument("--allow-buy", action="store_true", default=False, help="Allow buy orders. Disabled by default for safety.")
     p.add_argument("--allow-sell", action="store_true", default=False, help="Allow sell orders. Disabled by default for safety.")
+    p.add_argument("--auto-transfer-usdt", action="store_true", help="Auto transfer USDT from funding account to trading account before rebalancing.")
+    p.add_argument("--transfer-in-dry-run", action="store_true", help="Allow transfer even in dry-run mode.")
+    p.add_argument("--min-transfer-usdt", type=float, default=10.0)
+    p.add_argument("--funding-reserve-usdt", type=float, default=0.0)
     p.add_argument("--no-save-results", action="store_true")
     p.add_argument("--base-url", type=str, default="https://www.okx.com")
     p.add_argument(
@@ -523,6 +556,33 @@ def main():
         base_url=args.base_url,
         user_agent=args.user_agent,
     )
+    funding_transfer = {
+        "enabled": bool(args.auto_transfer_usdt),
+        "status": "DISABLED",
+        "funding_usdt_before": 0.0,
+        "planned_transfer_usdt": 0.0,
+        "transfer": None,
+    }
+    if args.auto_transfer_usdt:
+        try:
+            fb = client.get_funding_balances(ccy="USDT")
+            funding_usdt = _safe_float(fb.get("USDT"), 0.0)
+            plan_amt = max(0.0, funding_usdt - max(0.0, args.funding_reserve_usdt))
+            funding_transfer["funding_usdt_before"] = round(funding_usdt, 8)
+            funding_transfer["planned_transfer_usdt"] = round(plan_amt, 8)
+            funding_transfer["status"] = "DRY_RUN"
+            if plan_amt >= float(args.min_transfer_usdt):
+                if args.live or args.transfer_in_dry_run:
+                    transfer_row = client.transfer_funding_to_trading("USDT", plan_amt)
+                    funding_transfer["status"] = "SUBMITTED"
+                    funding_transfer["transfer"] = transfer_row
+                else:
+                    funding_transfer["status"] = "DRY_RUN"
+            else:
+                funding_transfer["status"] = "TOO_SMALL"
+        except Exception as e:
+            funding_transfer["status"] = "FAILED"
+            funding_transfer["error"] = str(e)
     balances = client.get_spot_balances()
 
     symbols_for_price = sorted({k for k in target_alloc.keys() if k != "USDT"} | {k for k in balances.keys() if k != "USDT"})
@@ -589,6 +649,7 @@ def main():
         "active_profile": switch_payload.get("active_profile"),
         "execution_mode": switch_payload.get("execution_checklist", {}).get("mode"),
         "target_alloc": target_alloc,
+        "funding_transfer": funding_transfer,
         "balances": balances,
         "prices": prices,
         "spreads_bps": {k: round(v, 4) for k, v in spreads.items()},
