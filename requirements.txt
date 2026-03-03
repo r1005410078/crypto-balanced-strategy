@@ -1,0 +1,2 @@
+# This skill currently requires no third-party Python packages.
+# Keep this file for portable setup workflows and future pinning.

@@ -1,0 +1,20 @@
+{
+  "snapshot_date": "2026-03-03",
+  "snapshot_time_local": "11:01",
+  "timezone": "Asia/Shanghai",
+  "source": "manual_from_user_confirmation",
+  "account_type": "交易账户",
+  "base_currency": "USDT",
+  "total_estimated_value_usdt": 596.85,
+  "assets": [
+    {
+      "symbol": "USDT",
+      "quantity": 596.85,
+      "estimated_value_usdt": 596.85
+    }
+  ],
+  "notes": [
+    "User confirmed all risk assets were closed on 2026-03-03.",
+    "Snapshot updated to reflect 100% USDT holdings."
+  ]
+}

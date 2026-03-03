@@ -15,7 +15,15 @@ Use this skill for: 策略设计、反复回测、参数优化、当前仓位信
 - `scripts/multi_strategy_advisor.py`: multi-strategy ensemble allocator (local optimum)
 - `scripts/backtest_governance.py`: robustness governance (stress/sensitivity/walk-forward + decision)
 - `scripts/profile_switcher.py`: state-machine profile switcher (stable/short-balanced/shield + confirmation)
+- `scripts/tune_risk_layer.py`: constrained risk-parameter optimizer for switch layer profiles
+- `scripts/daily_execution_report.py`: one-command daily report (profile + action checklist + guardrails)
+- `scripts/okx_auto_executor.py`: OKX spot execution bridge (reads latest signal, builds rebalance plan, dry-run/live execution with guardrails)
+- `scripts/trade_decision_scorecard.py`: trade-decision scorecard (fills + realized PnL + cost/discipline scoring + strategy-context recommendations)
+- `scripts/preflight_check.py`: portability self-check (python/version/files/env/OKX read permission)
 - `profiles.json`: parameter profiles (`stable`, `stable_short_balanced`, `stable_shield`, ...)
+- `dependencies.json`: machine-readable dependency declaration for cross-machine install
+- `requirements.txt`: pip dependency placeholder (currently stdlib-only runtime)
+- `portfolio_snapshot.json`: latest real holdings snapshot (for holdings-aware advice)
 - `cache/`: local kline cache (auto-managed)
 - `results/`: optimization result snapshots
 - `tests/test_engine.py`: lightweight regression tests
@@ -24,21 +32,76 @@ Use this skill for: 策略设计、反复回测、参数优化、当前仓位信
 - `tests/test_governance.py`: governance decision regression tests
 - `tests/test_profile_switcher.py`: profile-switch rule and confirmation regression tests
 
+## Dependencies (Portable Install)
+
+- `requires_skills`:
+  - `backtesting-frameworks` (optional, conceptual reference only)
+  - `backtest-expert` (optional, conceptual reference only)
+- `python`: `>=3.10`
+- `pip`: none required currently (stdlib-only)
+- `env` (required for OKX features):
+  - `OKX_API_KEY`
+  - `OKX_API_SECRET`
+  - `OKX_API_PASSPHRASE`
+- `OKX API permissions`:
+  - required: `Read`
+  - required for live orders: `Trade`
+  - forbidden: `Withdraw`
+
+Install checklist on another machine:
+```bash
+cd /path/to/crypto-balanced-strategy
+python3 -m pip install -r requirements.txt
+python3 scripts/preflight_check.py --format text
+python3 scripts/preflight_check.py --check-okx --format text
+```
+
+## Current Strategy (Single Source of Truth)
+
+Current production strategy definition:
+- Strategy family: dual-momentum + trend filter + regime switch + volatility-targeted risk control
+- Profile universe: `stable`, `stable_short_balanced`, `stable_shield`
+- Execution policy: run switch signal first, then execute `dry-run`, and only place `--live` orders after dry-run validation
+
+Authoritative files (in priority order):
+1. `profiles.json`:
+   - defines all parameter sets (what each profile means)
+2. `results/profile_switch_state.json`:
+   - records current active profile state machine (`active_profile`, pending state)
+3. latest `results/switch_*.json`:
+   - authoritative latest signal (`active_profile`, `params_used`, `latest_alloc`, guardrails)
+4. latest `results/okx_exec_*.json`:
+   - authoritative execution output (planned/submitted/failed orders)
+5. latest `results/decision_scorecard_*.json`:
+   - authoritative decision-quality scoring (PnL/cost/discipline)
+
+Quick command to print current strategy snapshot:
+```bash
+latest=$(ls -t results/switch_*.json | head -n 1) && \
+jq '{active_profile,target_profile,latest_alloc:.active_signal.latest_alloc,params_used:.active_signal.params_used}' "$latest"
+```
+
+Documentation sync rule:
+- If docs and runtime output differ, runtime files above are the source of truth.
+- Update this section when profile set, switching logic, or execution policy changes.
+
 ## New Session Bootstrap (Anti-Amnesia)
 
 When a new chat/window starts, do this **before** giving strategy advice:
 
 1. Read this file (`SKILL.md`) and confirm current workflow.
 2. Read `profiles.json` to load the latest active parameters.
-3. Read the latest files under `results/` (both `optimize_*.json` and `summary_*.json`) to recover recent optimization context.
-4. Run a fresh switch + signal check:
+3. Read `portfolio_snapshot.json` (if present) as current real holdings baseline.
+4. Read the latest files under `results/` (both `optimize_*.json` and `summary_*.json`) to recover recent optimization context.
+5. Run a fresh switch + signal check:
 ```bash
 python3 scripts/profile_switcher.py --capital-cny 10000 --confirmations 2
 ```
-5. Only then provide recommendations, and always include:
+6. Only then provide recommendations, and always include:
    - `active_profile` used
    - key `params_used`
    - latest `latest_alloc`
+   - holdings diff: `portfolio_snapshot.json` vs `latest_alloc` (what to keep/add/reduce)
 
 If `results/` is empty, run quick optimization first:
 ```bash
@@ -46,6 +109,11 @@ python3 scripts/optimize.py --quick-grid --jobs 2 --fold-days 120 --fold-count 2
 ```
 
 ## Workflow
+
+0. Run portability preflight before first use in a new environment:
+```bash
+python3 scripts/preflight_check.py --format text
+```
 
 1. Walk-forward optimize (OOS-first ranking, robust score):
 ```bash
@@ -123,6 +191,62 @@ Switch output includes:
 - `active_profile`: final active profile after confirmation logic
 - `state_before/state_after`: pending target and pending count
 - `active_signal.latest_alloc`: current execution allocation
+- `execution_checklist`: actionable step list (hold/deploy, capital plan, guardrails)
+
+3.6 Tune risk layer params under constraints (target_vol/risk_off/rebalance/regime_sma):
+```bash
+python3 scripts/tune_risk_layer.py \
+  --profiles stable,stable_short_balanced,stable_shield \
+  --windows 120,180,365,730 \
+  --write-profiles
+```
+
+Tune output includes:
+- per-profile `feasible_count` and top candidates
+- `role_penalty` to avoid profile-role collapse
+- `updated_profiles` and updated `profiles.json`
+
+3.7 Generate one-command daily execution report:
+```bash
+python3 scripts/daily_execution_report.py --capital-cny 10000 --format text
+```
+
+3.8 Execute strategy allocation on OKX (safe default: dry-run):
+```bash
+# Dry-run (plan only, no real order)
+python3 scripts/okx_auto_executor.py --allow-sell --allow-buy
+
+# Live (real order): only after dry-run result is verified
+python3 scripts/okx_auto_executor.py --allow-sell --allow-buy --live
+```
+
+Required env vars:
+```bash
+export OKX_API_KEY=...
+export OKX_API_SECRET=...
+export OKX_API_PASSPHRASE=...
+```
+
+3.9 Generate trade-decision scorecard (JSON + Markdown):
+```bash
+python3 scripts/trade_decision_scorecard.py --format both
+```
+
+Output:
+- `results/decision_scorecard_*.json`
+- `results/decision_scorecard_*.md`
+
+Report includes:
+- active/target profile + switched state
+- `hold_cash` vs `deploy` decision
+- short-window checks and signal metrics
+- executable instructions + guardrails + next-check command
+- holdings-aware adjustment suggestion based on `portfolio_snapshot.json` (if present)
+
+Ultra-brief command (3 lines only: profile/action/amount):
+```bash
+python3 scripts/daily_execution_report.py --capital-cny 10000 --format brief
+```
 
 4. Save best optimized params into a profile:
 ```bash

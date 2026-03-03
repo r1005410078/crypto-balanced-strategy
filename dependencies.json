@@ -1,0 +1,55 @@
+{
+  "python": ">=3.10",
+  "requires_skills": [
+    {
+      "name": "backtesting-frameworks",
+      "required": false,
+      "reason": "Conceptual reference only; runtime does not import this skill."
+    },
+    {
+      "name": "backtest-expert",
+      "required": false,
+      "reason": "Conceptual governance workflow reference only."
+    }
+  ],
+  "runtime": {
+    "pip": [],
+    "notes": [
+      "Current scripts use Python standard library only."
+    ]
+  },
+  "env": [
+    {
+      "name": "OKX_API_KEY",
+      "required_for": [
+        "scripts/okx_auto_executor.py",
+        "scripts/trade_decision_scorecard.py"
+      ]
+    },
+    {
+      "name": "OKX_API_SECRET",
+      "required_for": [
+        "scripts/okx_auto_executor.py",
+        "scripts/trade_decision_scorecard.py"
+      ]
+    },
+    {
+      "name": "OKX_API_PASSPHRASE",
+      "required_for": [
+        "scripts/okx_auto_executor.py",
+        "scripts/trade_decision_scorecard.py"
+      ]
+    }
+  ],
+  "okx_api_permissions": {
+    "required": [
+      "Read"
+    ],
+    "required_for_live": [
+      "Trade"
+    ],
+    "forbidden": [
+      "Withdraw"
+    ]
+  }
+}

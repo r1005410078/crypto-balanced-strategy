@@ -24,6 +24,136 @@ def _summarize(metrics):
     }
 
 
+def _alloc_to_capital(allocation, capital_cny):
+    return {k: round(v * capital_cny, 2) for k, v in allocation.items()}
+
+
+def _tranches_for_profile(profile):
+    if profile == "stable":
+        return [0.4, 0.3, 0.3]
+    if profile == "stable_short_balanced":
+        return [0.35, 0.35, 0.3]
+    # shield
+    return [0.5, 0.5]
+
+
+def build_execution_checklist(
+    active_profile,
+    latest_alloc,
+    capital_cny,
+    switched,
+    switch_reasons,
+    risk_features,
+    active_check_metrics,
+):
+    usdt_w = float(latest_alloc.get("USDT", 0.0))
+    risk_exposure = max(0.0, 1.0 - usdt_w)
+    capital_plan_cny = _alloc_to_capital(latest_alloc, capital_cny)
+
+    mode = "hold_cash" if risk_exposure < 0.01 else "deploy"
+    actions = []
+    guardrails = []
+
+    actions.append(
+        {
+            "step": 1,
+            "type": "status",
+            "instruction": (
+                f"Active profile: {active_profile}"
+                + (" (just switched)" if switched else "")
+            ),
+            "reasons": switch_reasons,
+        }
+    )
+
+    if mode == "hold_cash":
+        actions.append(
+            {
+                "step": 2,
+                "type": "hold",
+                "instruction": "No risk assets in latest allocation; keep capital in USDT/cash-equivalent.",
+                "capital_plan_cny": {"USDT": capital_plan_cny.get("USDT", 0.0)},
+            }
+        )
+        actions.append(
+            {
+                "step": 3,
+                "type": "monitor",
+                "instruction": (
+                    "Re-run switcher daily. Deploy only when non-cash allocation appears "
+                    "for active profile."
+                ),
+            }
+        )
+    else:
+        risk_assets = [(k, v) for k, v in latest_alloc.items() if k != "USDT" and v > 0.0]
+        risk_assets.sort(key=lambda x: x[1], reverse=True)
+        risk_weight_sum = sum(v for _, v in risk_assets)
+        tranches = _tranches_for_profile(active_profile)
+
+        actions.append(
+            {
+                "step": 2,
+                "type": "allocate",
+                "instruction": "Use staged entries to reduce timing risk.",
+                "risk_exposure_pct": round(risk_exposure * 100, 2),
+                "tranches": tranches,
+            }
+        )
+
+        step_id = 3
+        for i, tr in enumerate(tranches, start=1):
+            orders = []
+            for asset, w in risk_assets:
+                rel_w = w / risk_weight_sum if risk_weight_sum > 0 else 0.0
+                amt = capital_cny * risk_exposure * tr * rel_w
+                orders.append(
+                    {
+                        "asset": asset,
+                        "amount_cny": round(amt, 2),
+                        "weight_of_total_capital_pct": round(risk_exposure * tr * rel_w * 100, 2),
+                    }
+                )
+            actions.append(
+                {
+                    "step": step_id,
+                    "type": "entry_tranche",
+                    "instruction": f"Execute tranche {i}/{len(tranches)}",
+                    "orders": orders,
+                }
+            )
+            step_id += 1
+
+    guardrails.append(
+        {
+            "rule": "regime_risk",
+            "instruction": (
+                "If BTC close remains below SMA200 and 60-day drawdown worsens, force profile to stable_shield."
+            ),
+            "close": risk_features["close"],
+            "sma200": risk_features["sma200"],
+            "drawdown60_pct": risk_features["drawdown60_pct"],
+        }
+    )
+    guardrails.append(
+        {
+            "rule": "risk_budget",
+            "instruction": "If live drawdown exceeds strategy 120-day drawdown by 30%, cut risk exposure to 0.",
+            "strategy_mdd120_pct": round(active_check_metrics["max_drawdown"] * 100, 2),
+            "trigger_live_drawdown_pct": round(abs(active_check_metrics["max_drawdown"]) * 1.3 * 100, 2),
+        }
+    )
+
+    return {
+        "mode": mode,
+        "risk_exposure_pct": round(risk_exposure * 100, 2),
+        "capital_plan_cny": capital_plan_cny,
+        "actions": actions,
+        "guardrails": guardrails,
+        "next_check_command": "python3 scripts/profile_switcher.py --capital-cny 10000 --confirmations 2 --check-window 120 --signal-window 365",
+    }
+
+
 def evaluate_market_risk(data, regime_symbol):
     _, _, closes, _, _, _ = align_ohlc(data)
     px = closes[regime_symbol]
@@ -255,6 +385,15 @@ def main():
             "params_used": profiles[active_profile],
         },
     }
+    out["execution_checklist"] = build_execution_checklist(
+        active_profile=active_profile,
+        latest_alloc=signal_metrics["latest_alloc"],
+        capital_cny=args.capital_cny,
+        switched=switched,
+        switch_reasons=reasons,
+        risk_features=risk_features,
+        active_check_metrics=check_metrics[active_profile],
+    )
 
     if not args.no_save_results:
         out["results_file"] = _save_switch_result(skill_root, out)

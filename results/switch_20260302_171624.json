@@ -1,0 +1,98 @@
+{
+  "capital_cny": 10000.0,
+  "base_profile": "stable",
+  "short_profile": "stable_short_balanced",
+  "shield_profile": "stable_shield",
+  "check_window": 120,
+  "signal_window": 365,
+  "short_threshold": -0.03,
+  "shield_threshold": -0.015,
+  "risk_mode": "auto",
+  "risk_rising_used": true,
+  "risk_features": {
+    "regime_symbol": "BTCUSDT",
+    "close": 66573.69,
+    "sma200": 96836.8452,
+    "ret20_pct": -0.76,
+    "drawdown60_pct": -31.33,
+    "risk_rising": true
+  },
+  "target_profile": "stable",
+  "switch_reasons": [
+    "base profile within threshold"
+  ],
+  "confirmations": 2,
+  "switched": false,
+  "state_before": {
+    "active_profile": "stable_shield",
+    "pending_target": null,
+    "pending_count": 0,
+    "updated_at": "2026-03-02T16:53:26.482070"
+  },
+  "state_after": {
+    "active_profile": "stable_shield",
+    "pending_target": "stable",
+    "pending_count": 1,
+    "updated_at": "2026-03-02T17:16:24.297885"
+  },
+  "state_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/profile_switch_state.json",
+  "check_metrics": {
+    "stable": {
+      "return_pct": -0.61,
+      "cagr_pct": -1.86,
+      "max_drawdown_pct": -0.61,
+      "sharpe": -2.36,
+      "avg_daily_turnover": 0.0017
+    },
+    "stable_short_balanced": {
+      "return_pct": -0.61,
+      "cagr_pct": -1.86,
+      "max_drawdown_pct": -0.61,
+      "sharpe": -2.36,
+      "avg_daily_turnover": 0.0017
+    },
+    "stable_shield": {
+      "return_pct": -0.59,
+      "cagr_pct": -1.8,
+      "max_drawdown_pct": -0.71,
+      "sharpe": -1.991,
+      "avg_daily_turnover": 0.0008
+    }
+  },
+  "active_profile": "stable_shield",
+  "active_signal": {
+    "return_pct": 40.04,
+    "cagr_pct": 40.04,
+    "max_drawdown_pct": -8.77,
+    "sharpe": 2.016,
+    "avg_daily_turnover": 0.016,
+    "final_cny": 14003.63,
+    "profit_cny": 4003.63,
+    "latest_alloc": {
+      "BTCUSDT": 0.0,
+      "ETHUSDT": 0.0,
+      "SOLUSDT": 0.0,
+      "BNBUSDT": 0.0,
+      "LINKUSDT": 0.0,
+      "USDT": 1.0
+    },
+    "regime_symbol_used": "BTCUSDT",
+    "params_used": {
+      "lb_fast": 20,
+      "lb_slow": 60,
+      "sma_filter": 140,
+      "k": 1,
+      "atr_mult": 3.8,
+      "max_w_core": 0.6,
+      "max_w_alt": 0.35,
+      "vol_lb": 20,
+      "target_vol": 0.24,
+      "rebalance_every": 3,
+      "regime_sma": 180,
+      "risk_off_exposure": 0.05,
+      "atr_period": 14,
+      "fee": 0.001,
+      "slip": 0.0005
+    }
+  }
+}

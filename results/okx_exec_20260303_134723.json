@@ -1,0 +1,80 @@
+{
+  "generated_at": "2026-03-03T13:47:23.457881",
+  "mode": "DRY_RUN",
+  "switch_source": "/opt/miniconda3/bin/python3 /Users/rongts/.agents/skills/crypto-balanced-strategy/scripts/profile_switcher.py --capital-cny 10000 --confirmations 2 --check-window 120 --signal-window 365 --short-threshold -0.03 --shield-threshold -0.015 --risk-mode auto --base-profile stable --short-profile stable_short_balanced --shield-profile stable_shield --symbols BTCUSDT,ETHUSDT,SOLUSDT,BNBUSDT,LINKUSDT --regime-symbol BTCUSDT --limit 1000 --cache-ttl-hours 6",
+  "active_profile": "stable",
+  "execution_mode": "hold_cash",
+  "target_alloc": {
+    "BTC": 0.0,
+    "ETH": 0.0,
+    "SOL": 0.0,
+    "BNB": 0.0,
+    "LINK": 0.0,
+    "USDT": 1.0
+  },
+  "balances": {
+    "USDT": 595.535776336,
+    "BTC": 2.082e-09
+  },
+  "prices": {
+    "BNB": 630.7,
+    "BTC": 68058.5,
+    "ETH": 1998.4,
+    "LINK": 8.833,
+    "SOL": 85.9
+  },
+  "spreads_bps": {
+    "BNB": 1.5857,
+    "BTC": 0.0147,
+    "ETH": 0.05,
+    "LINK": 1.1326,
+    "SOL": 1.1643
+  },
+  "price_errors": [],
+  "plan": {
+    "equity_usdt": 595.535918,
+    "current_values_usdt": {
+      "BNB": 0.0,
+      "BTC": 0.000142,
+      "ETH": 0.0,
+      "LINK": 0.0,
+      "SOL": 0.0,
+      "USDT": 595.535776
+    },
+    "target_values_usdt": {
+      "BNB": 0.0,
+      "BTC": 0.0,
+      "ETH": 0.0,
+      "LINK": 0.0,
+      "SOL": 0.0,
+      "USDT": 595.535918
+    },
+    "diffs_usdt": {
+      "BNB": 0.0,
+      "BTC": -0.000142,
+      "ETH": 0.0,
+      "LINK": 0.0,
+      "SOL": 0.0,
+      "USDT": 0.000142
+    },
+    "current_weights": {
+      "BNB": 0.0,
+      "BTC": 0.0,
+      "ETH": 0.0,
+      "LINK": 0.0,
+      "SOL": 0.0,
+      "USDT": 1.0
+    },
+    "target_weights": {
+      "BTC": 0.0,
+      "ETH": 0.0,
+      "SOL": 0.0,
+      "BNB": 0.0,
+      "LINK": 0.0,
+      "USDT": 1.0
+    },
+    "orders": [],
+    "skipped": []
+  },
+  "execution": []
+}
