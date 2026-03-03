@@ -1,20 +1,41 @@
 #!/usr/bin/env python3
+import json
+import os
 import sys
+import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from daily_execution_report import (
+    _build_live_holdings_snapshot,
     _build_brief_report,
     _build_holdings_adjustment,
     _build_summary_payload,
     _build_text_report,
+    _load_holdings_data,
+    _save_portfolio_snapshot,
 )
 
 
 class DailyExecutionReportTests(unittest.TestCase):
+    class _FakeClient:
+        def get_spot_balances(self):
+            return {"USDT": 100, "BTC": 0.01}
+
+        def get_funding_balances(self):
+            return {"USDT": 50, "ETH": 0.2}
+
+        def get_ticker(self, inst_id):
+            if inst_id == "BTC-USDT":
+                return {"price": 60000}
+            if inst_id == "ETH-USDT":
+                return {"price": 3000}
+            raise ValueError(inst_id)
+
     def _base_switch_payload(self):
         return {
             "active_profile": "stable",
@@ -51,6 +72,7 @@ class DailyExecutionReportTests(unittest.TestCase):
         )
         self.assertEqual(out["summary"]["mode"], "hold_cash")
         self.assertFalse(out["summary"]["action_required"])
+        self.assertFalse(out["holdings_snapshot_synced"])
         self.assertTrue(out["instructions"])
 
     def test_text_report_contains_key_lines(self):
@@ -95,6 +117,63 @@ class DailyExecutionReportTests(unittest.TestCase):
         usdt = next(x for x in adj["actions"] if x["symbol"] == "USDT")
         self.assertEqual(btc["suggestion"], "reduce")
         self.assertEqual(usdt["suggestion"], "add")
+
+    def test_build_live_holdings_snapshot_includes_funding(self):
+        snap = _build_live_holdings_snapshot(self._FakeClient(), include_funding=True)
+        self.assertEqual(snap["snapshot_source"], "okx_live")
+        self.assertTrue(snap["include_funding"])
+        self.assertAlmostEqual(snap["trade_balances"]["USDT"], 100.0, places=6)
+        self.assertAlmostEqual(snap["funding_balances"]["USDT"], 50.0, places=6)
+        self.assertAlmostEqual(snap["total_estimated_value_usdt"], 1350.0, places=6)
+
+    def test_load_holdings_data_auto_fallback_snapshot_when_env_missing(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            p = Path(tmp) / "portfolio_snapshot.json"
+            p.write_text(
+                json.dumps(
+                    {
+                        "snapshot_source": "snapshot_file",
+                        "assets": [{"symbol": "USDT", "estimated_value_usdt": 100}],
+                        "total_estimated_value_usdt": 100,
+                    },
+                    ensure_ascii=False,
+                )
+            )
+            with patch.dict(os.environ, {}, clear=True):
+                snap, source, live_error = _load_holdings_data(
+                    skill_root=tmp,
+                    holdings_source="auto",
+                    include_funding=True,
+                    live_base_url="https://www.okx.com",
+                    live_user_agent=None,
+                )
+        self.assertIsNotNone(snap)
+        self.assertTrue(source.endswith("portfolio_snapshot.json"))
+        self.assertIn("Missing OKX API env vars", live_error)
+
+    def test_load_holdings_data_live_raises_when_env_missing(self):
+        with patch.dict(os.environ, {}, clear=True):
+            with self.assertRaises(RuntimeError):
+                _load_holdings_data(
+                    skill_root=str(ROOT),
+                    holdings_source="live",
+                    include_funding=True,
+                    live_base_url="https://www.okx.com",
+                    live_user_agent=None,
+                )
+
+    def test_save_portfolio_snapshot(self):
+        snap = {
+            "snapshot_source": "okx_live",
+            "assets": [{"symbol": "USDT", "estimated_value_usdt": 123.4}],
+            "total_estimated_value_usdt": 123.4,
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            out_path = _save_portfolio_snapshot(tmp, snap)
+            data = json.loads(Path(out_path).read_text())
+        self.assertTrue(out_path.endswith("portfolio_snapshot.json"))
+        self.assertEqual(data["snapshot_source"], "okx_live")
+        self.assertAlmostEqual(data["total_estimated_value_usdt"], 123.4, places=6)
 
 
 if __name__ == "__main__":

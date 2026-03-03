@@ -1,20 +1,22 @@
 {
+  "snapshot_source": "okx_live",
   "snapshot_date": "2026-03-03",
-  "snapshot_time_local": "11:01",
-  "timezone": "Asia/Shanghai",
-  "source": "manual_from_user_confirmation",
-  "account_type": "交易账户",
-  "base_currency": "USDT",
-  "total_estimated_value_usdt": 596.85,
+  "snapshot_time_local": "2026-03-03T18:17:54.411105",
+  "include_funding": true,
+  "trade_balances": {
+    "USDT": 595.518734173575
+  },
+  "funding_balances": {
+    "USDT": 804.415009694
+  },
   "assets": [
     {
       "symbol": "USDT",
-      "quantity": 596.85,
-      "estimated_value_usdt": 596.85
+      "quantity": 1399.933743867575,
+      "estimated_price_usdt": 1.0,
+      "estimated_value_usdt": 1399.933743867575
     }
   ],
-  "notes": [
-    "User confirmed all risk assets were closed on 2026-03-03.",
-    "Snapshot updated to reflect 100% USDT holdings."
-  ]
+  "unpriced_assets": [],
+  "total_estimated_value_usdt": 1399.933743867575
 }

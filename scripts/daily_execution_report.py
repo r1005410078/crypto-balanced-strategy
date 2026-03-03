@@ -1,17 +1,136 @@
 #!/usr/bin/env python3
 import argparse
 import json
+import os
 import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
 
+from okx_auto_executor import OkxClient, _safe_float
 
-def _load_holdings_snapshot(skill_root):
+
+def _load_holdings_snapshot_file(skill_root):
     path = Path(skill_root) / "portfolio_snapshot.json"
     if not path.exists():
         return None, None
     return json.loads(path.read_text()), str(path)
+
+
+def _to_inst_id(base_sym):
+    return f"{str(base_sym).upper()}-USDT"
+
+
+def _merge_balances(*rows):
+    out = {}
+    for row in rows:
+        if not row:
+            continue
+        for k, v in row.items():
+            sym = str(k).upper().strip()
+            if not sym:
+                continue
+            qty = _safe_float(v, 0.0)
+            if qty <= 0:
+                continue
+            out[sym] = out.get(sym, 0.0) + qty
+    return out
+
+
+def _build_live_holdings_snapshot(client, *, include_funding=True):
+    spot_balances = client.get_spot_balances()
+    funding_balances = client.get_funding_balances() if include_funding else {}
+    balances = _merge_balances(spot_balances, funding_balances)
+    assets = []
+    unpriced_assets = []
+    total = 0.0
+
+    for sym in sorted(balances.keys()):
+        qty = _safe_float(balances.get(sym, 0.0), 0.0)
+        if qty <= 0:
+            continue
+        price = 1.0 if sym == "USDT" else 0.0
+        if sym != "USDT":
+            try:
+                tk = client.get_ticker(_to_inst_id(sym))
+                price = _safe_float(tk.get("price", 0.0), 0.0)
+            except Exception as e:
+                unpriced_assets.append({"symbol": sym, "error": str(e)})
+                continue
+            if price <= 0:
+                unpriced_assets.append({"symbol": sym, "error": "invalid_price"})
+                continue
+
+        est_value = qty * price
+        total += est_value
+        assets.append(
+            {
+                "symbol": sym,
+                "quantity": qty,
+                "estimated_price_usdt": price,
+                "estimated_value_usdt": est_value,
+            }
+        )
+
+    now = datetime.now()
+    return {
+        "snapshot_source": "okx_live",
+        "snapshot_date": now.date().isoformat(),
+        "snapshot_time_local": now.isoformat(),
+        "include_funding": bool(include_funding),
+        "trade_balances": spot_balances,
+        "funding_balances": funding_balances,
+        "assets": assets,
+        "unpriced_assets": unpriced_assets,
+        "total_estimated_value_usdt": total,
+    }
+
+
+def _build_okx_client_from_env(*, base_url, user_agent, client_factory=OkxClient):
+    api_key = os.environ.get("OKX_API_KEY", "").strip()
+    api_secret = os.environ.get("OKX_API_SECRET", "").strip()
+    api_passphrase = os.environ.get("OKX_API_PASSPHRASE", "").strip()
+    if not api_key or not api_secret or not api_passphrase:
+        raise RuntimeError("Missing OKX API env vars: OKX_API_KEY, OKX_API_SECRET, OKX_API_PASSPHRASE")
+    return client_factory(
+        api_key=api_key,
+        api_secret=api_secret,
+        passphrase=api_passphrase,
+        base_url=base_url,
+        user_agent=user_agent,
+    )
+
+
+def _load_holdings_data(
+    *,
+    skill_root,
+    holdings_source,
+    include_funding,
+    live_base_url,
+    live_user_agent,
+    client_factory=OkxClient,
+):
+    live_error = None
+    if holdings_source in {"auto", "live"}:
+        try:
+            client = _build_okx_client_from_env(
+                base_url=live_base_url,
+                user_agent=live_user_agent,
+                client_factory=client_factory,
+            )
+            snapshot = _build_live_holdings_snapshot(client, include_funding=include_funding)
+            return snapshot, "okx_live", None
+        except Exception as e:
+            live_error = str(e)
+            if holdings_source == "live":
+                raise
+
+    if holdings_source in {"auto", "snapshot"}:
+        snapshot, path = _load_holdings_snapshot_file(skill_root)
+        if snapshot is not None:
+            return snapshot, path, live_error
+
+    return None, None, live_error
 
 
 def _normalize_holdings_weights(snapshot):
@@ -140,6 +259,12 @@ def _save_daily_report(skill_root, payload):
     return str(path)
 
 
+def _save_portfolio_snapshot(skill_root, snapshot):
+    path = Path(skill_root) / "portfolio_snapshot.json"
+    path.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n")
+    return str(path)
+
+
 def _build_text_report(payload):
     summary = payload["summary"]
     check = payload["check_metrics"]
@@ -158,6 +283,10 @@ def _build_text_report(payload):
     lines.append(
         f"Signal365: return={summary['signal_return_pct']}% mdd={summary['signal_max_drawdown_pct']}% sharpe={summary['signal_sharpe']}"
     )
+    lines.append(f"Holdings Source: {payload.get('holdings_source') or 'none'}")
+    lines.append(f"Holdings Snapshot Synced: {bool(payload.get('holdings_snapshot_synced'))}")
+    if payload.get("holdings_live_error"):
+        lines.append(f"Holdings Live Fallback: {payload['holdings_live_error']}")
     lines.append("Instructions:")
     for row in payload["instructions"]:
         lines.append(f"- {row}")
@@ -195,7 +324,15 @@ def _build_brief_report(payload):
     return "\n".join([profile_line, action_line, amount_line])
 
 
-def _build_summary_payload(switch_payload, invoked_cmd, holdings_adjustment=None, holdings_path=None):
+def _build_summary_payload(
+    switch_payload,
+    invoked_cmd,
+    holdings_adjustment=None,
+    holdings_path=None,
+    holdings_source=None,
+    holdings_live_error=None,
+    holdings_snapshot_synced=False,
+):
     checklist = switch_payload["execution_checklist"]
     active_signal = switch_payload["active_signal"]
     instructions = []
@@ -244,6 +381,9 @@ def _build_summary_payload(switch_payload, invoked_cmd, holdings_adjustment=None
         "summary": summary,
         "check_metrics": switch_payload["check_metrics"],
         "execution_checklist": checklist,
+        "holdings_source": holdings_source,
+        "holdings_live_error": holdings_live_error,
+        "holdings_snapshot_synced": bool(holdings_snapshot_synced),
         "holdings_snapshot_file": holdings_path,
         "holdings_adjustment": holdings_adjustment,
         "instructions": instructions,
@@ -274,6 +414,26 @@ def main():
     p.add_argument("--no-cache", action="store_true")
     p.add_argument("--no-save-results", action="store_true")
     p.add_argument("--format", choices=["text", "json", "brief"], default="text")
+    p.add_argument(
+        "--holdings-source",
+        choices=["auto", "live", "snapshot"],
+        default="auto",
+        help="auto: try OKX live holdings first, fallback to portfolio_snapshot.json.",
+    )
+    p.add_argument(
+        "--holdings-include-funding",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Include funding account balances for live holdings.",
+    )
+    p.add_argument("--holdings-live-base-url", type=str, default="https://www.okx.com")
+    p.add_argument("--holdings-live-user-agent", type=str, default=None)
+    p.add_argument(
+        "--sync-holdings-snapshot",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="When live holdings are used, write them back to portfolio_snapshot.json.",
+    )
     args = p.parse_args()
 
     script_dir = Path(__file__).resolve().parent
@@ -283,7 +443,22 @@ def main():
 
     raw = subprocess.check_output(cmd, text=True)
     switch_payload = json.loads(raw)
-    holdings_snapshot, holdings_path = _load_holdings_snapshot(skill_root)
+    holdings_snapshot, holdings_path, holdings_live_error = _load_holdings_data(
+        skill_root=skill_root,
+        holdings_source=args.holdings_source,
+        include_funding=args.holdings_include_funding,
+        live_base_url=args.holdings_live_base_url,
+        live_user_agent=args.holdings_live_user_agent,
+    )
+    holdings_snapshot_synced = False
+    if (
+        args.sync_holdings_snapshot
+        and holdings_snapshot is not None
+        and (holdings_snapshot.get("snapshot_source") == "okx_live")
+    ):
+        holdings_path = _save_portfolio_snapshot(skill_root, holdings_snapshot)
+        holdings_snapshot_synced = True
+
     holdings_adjustment = _build_holdings_adjustment(
         snapshot=holdings_snapshot,
         model_alloc=switch_payload["active_signal"]["latest_alloc"],
@@ -294,6 +469,9 @@ def main():
         invoked_cmd=" ".join(cmd),
         holdings_adjustment=holdings_adjustment,
         holdings_path=holdings_path,
+        holdings_source=(holdings_snapshot or {}).get("snapshot_source", holdings_path),
+        holdings_live_error=holdings_live_error,
+        holdings_snapshot_synced=holdings_snapshot_synced,
     )
 
     if not args.no_save_results:

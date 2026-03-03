@@ -1,0 +1,116 @@
+{
+  "generated_at": "2026-03-03T18:07:52.107020",
+  "mode": "LIVE",
+  "switch_source": "file:/Users/rongts/.agents/skills/crypto-balanced-strategy/results/switch_20260303_180444.json",
+  "active_profile": "stable",
+  "execution_mode": "hold_cash",
+  "target_alloc": {
+    "BTC": 0.0,
+    "ETH": 0.0,
+    "SOL": 0.0,
+    "BNB": 0.0,
+    "LINK": 0.0,
+    "USDT": 1.0
+  },
+  "funding_transfer": {
+    "enabled": false,
+    "status": "DISABLED",
+    "funding_usdt_before": 0.0,
+    "planned_transfer_usdt": 0.0,
+    "transfer": null
+  },
+  "balances": {
+    "USDT": 590.536436034,
+    "BTC": 7.4947062e-05
+  },
+  "prices": {
+    "BNB": 621.9,
+    "BTC": 66528.4,
+    "ETH": 1949.51,
+    "LINK": 8.624,
+    "SOL": 84.05
+  },
+  "spreads_bps": {
+    "BNB": 1.6078,
+    "BTC": 0.015,
+    "ETH": 0.0513,
+    "LINK": 1.1594,
+    "SOL": 1.1897
+  },
+  "price_errors": [],
+  "plan": {
+    "equity_usdt": 595.522544,
+    "current_values_usdt": {
+      "BNB": 0.0,
+      "BTC": 4.986108,
+      "ETH": 0.0,
+      "LINK": 0.0,
+      "SOL": 0.0,
+      "USDT": 590.536436
+    },
+    "target_values_usdt": {
+      "BNB": 0.0,
+      "BTC": 0.0,
+      "ETH": 0.0,
+      "LINK": 0.0,
+      "SOL": 0.0,
+      "USDT": 595.522544
+    },
+    "diffs_usdt": {
+      "BNB": 0.0,
+      "BTC": -4.986108,
+      "ETH": 0.0,
+      "LINK": 0.0,
+      "SOL": 0.0,
+      "USDT": 4.986108
+    },
+    "current_weights": {
+      "BNB": 0.0,
+      "BTC": 0.008373,
+      "ETH": 0.0,
+      "LINK": 0.0,
+      "SOL": 0.0,
+      "USDT": 0.991627
+    },
+    "target_weights": {
+      "BTC": 0.0,
+      "ETH": 0.0,
+      "SOL": 0.0,
+      "BNB": 0.0,
+      "LINK": 0.0,
+      "USDT": 1.0
+    },
+    "orders": [
+      {
+        "symbol": "BTC",
+        "inst_id": "BTC-USDT",
+        "side": "sell",
+        "notional_usdt": 4.9861,
+        "size": 7.495e-05,
+        "spread_bps": 0.02
+      }
+    ],
+    "skipped": []
+  },
+  "execution": [
+    {
+      "status": "SUBMITTED",
+      "order": {
+        "symbol": "BTC",
+        "inst_id": "BTC-USDT",
+        "side": "sell",
+        "notional_usdt": 4.9861,
+        "size": 7.495e-05,
+        "spread_bps": 0.02
+      },
+      "exchange": {
+        "clOrdId": "cbs177253246901",
+        "ordId": "3356452209417445376",
+        "sCode": "0",
+        "sMsg": "Order placed",
+        "tag": "",
+        "ts": "1772532470823"
+      }
+    }
+  ]
+}
