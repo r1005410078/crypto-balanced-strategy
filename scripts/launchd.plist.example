@@ -8,10 +8,20 @@
   <key>ProgramArguments</key>
   <array>
     <string>/usr/bin/python3</string>
-    <string>/Users/REPLACE_ME/.agents/skills/crypto-balanced-strategy/scripts/auto_daemon.py</string>
-    <string>--run-at</string>
-    <string>08:05</string>
+    <string>/Users/REPLACE_ME/.agents/skills/crypto-balanced-strategy/scripts/auto_dual_cycle.py</string>
     <string>--live</string>
+    <string>--promote-days</string>
+    <string>2</string>
+    <string>--allow-aggressive</string>
+    <string>--aggressive-promote-days</string>
+    <string>5</string>
+    <string>--network-recover-retry</string>
+    <string>--network-recover-max-wait-minutes</string>
+    <string>360</string>
+    <string>--aggressive-ratio</string>
+    <string>0.3</string>
+    <string>--kill-switch-file</string>
+    <string>/Users/REPLACE_ME/.agents/skills/crypto-balanced-strategy/results/kill_switch</string>
   </array>
 
   <key>WorkingDirectory</key>
@@ -29,9 +39,10 @@
     <string>true</string>
   </dict>
 
+  <key>StartInterval</key>
+  <integer>1800</integer>
+
   <key>RunAtLoad</key>
-  <true/>
-  <key>KeepAlive</key>
   <true/>
 
   <key>StandardOutPath</key>
