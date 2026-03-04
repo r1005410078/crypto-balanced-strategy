@@ -24,6 +24,8 @@ Use this skill for: 策略设计、反复回测、参数优化、当前仓位信
 - `scripts/auto_cycle.py`: one-shot unattended cycle (switch -> transfer -> plan -> risk gate -> execute -> persist -> notify)
 - `scripts/auto_daemon.py`: scheduler/daemon wrapper for unattended cycles
 - `scripts/auto_tier_cycle.py`: adaptive tier wrapper (conservative/balanced/aggressive auto-switch + auto_cycle execution)
+- `scripts/auto_dual_cycle.py`: dual-sleeve unattended runner (normal switch sleeve + aggressive sleeve, merged into one rebalance with budget/ratio split + selective notifications)
+- `scripts/aggressive_opt_loop.py`: iterative aggressive-profile optimizer (multi-round search for high-return candidates under constraints)
 - `scripts/health_check_dryrun.py`: daily connectivity health check (1 USDT dry-run plan, no live order)
 - `scripts/trade_decision_scorecard.py`: trade-decision scorecard (fills + realized PnL + cost/discipline scoring + strategy-context recommendations)
 - `scripts/okx_hot_strategy_advisor.py`: auto-select hot OKX strategy types (public marketplace signals) and generate conservative parameter/budget templates
@@ -43,6 +45,8 @@ Use this skill for: 策略设计、反复回测、参数优化、当前仓位信
 - `tests/test_risk_guard.py`: unattended risk-gate regression tests
 - `tests/test_auto_cycle.py`: unattended cycle helper/status regression tests
 - `tests/test_auto_tier_cycle.py`: adaptive tier decision regression tests
+- `tests/test_auto_dual_cycle.py`: dual-sleeve budget blend/notification policy regression tests
+- `tests/test_aggressive_opt_loop.py`: aggressive optimization loop guardrail regression tests
 - `tests/test_health_check_dryrun.py`: health check summary/normalization regression tests
 - `tests/test_okx_hot_strategy_advisor.py`: hot-strategy parser/scoring/budgeting regression tests
 
@@ -75,24 +79,37 @@ python3 scripts/preflight_check.py --check-okx --format text
 Current production strategy definition:
 - Strategy family: dual-momentum + trend filter + regime switch + volatility-targeted risk control
 - Profile universe: `stable`, `stable_short_balanced`, `stable_shield`
-- Execution policy: run switch signal first, then execute `dry-run`, and only place `--live` orders after dry-run validation
+- Execution policy: unattended production uses `auto_dual_cycle.py` (run switch signal first, merge normal+aggressive sleeve targets, execute one rebalance)
+- Sleeve split policy: ratio mode enabled in production (`primary:aggressive = 0.7:0.3`, from `--aggressive-ratio 0.3`)
+- Notification policy: only notify on trade success (`SUBMITTED>0`) or actionable failure (`FAILED/partial/failed` or blocked with pending orders/price errors); no-trade cycles are silent
+- Scheduler policy: launchd runs every 30 minutes (`StartInterval=1800`)
 
 Authoritative files (in priority order):
 1. `profiles.json`:
    - defines all parameter sets (what each profile means)
 2. `results/profile_switch_state.json`:
    - records current active profile state machine (`active_profile`, pending state)
-3. latest `results/switch_*.json`:
-   - authoritative latest signal (`active_profile`, `params_used`, `latest_alloc`, guardrails)
-4. latest `results/okx_exec_*.json`:
-   - authoritative execution output (planned/submitted/failed orders)
-5. latest `results/decision_scorecard_*.json`:
+3. latest `results/switch_*.json` and `results/switch_dual_*.json`:
+   - authoritative signal inputs and merged sleeve signal (`active_profile`, `params_used`, `latest_alloc`, guardrails)
+4. latest `results/auto_dual_cycle_*.json`:
+   - authoritative unattended execution output (`cycle_status`, `execution_counts`, `budget_split`, `target_alloc`, `notify_triggered`)
+5. latest `results/okx_exec_*.json`:
+   - low-level executor output (planned/submitted/failed orders)
+6. latest `results/decision_scorecard_*.json`:
    - authoritative decision-quality scoring (PnL/cost/discipline)
+7. `~/Library/LaunchAgents/com.crypto-balanced-strategy.auto.plist`:
+   - authoritative unattended runtime config (`ProgramArguments`, `StartInterval`, env wiring)
 
 Quick command to print current strategy snapshot:
 ```bash
 latest=$(ls -t results/switch_*.json | head -n 1) && \
 jq '{active_profile,target_profile,latest_alloc:.active_signal.latest_alloc,params_used:.active_signal.params_used}' "$latest"
+```
+
+Quick command to print latest dual-cycle runtime snapshot:
+```bash
+latest_dual=$(ls -t results/auto_dual_cycle_*.json | head -n 1) && \
+jq '{generated_at,cycle_status,execution_counts,budget_split,target_alloc,notify_triggered,notification_policy}' "$latest_dual"
 ```
 
 Documentation sync rule:
@@ -106,15 +123,24 @@ When a new chat/window starts, do this **before** giving strategy advice:
 1. Read this file (`SKILL.md`) and confirm current workflow.
 2. Read `profiles.json` to load the latest active parameters.
 3. Read `portfolio_snapshot.json` (if present) as current real holdings baseline.
-4. Read the latest files under `results/` (both `optimize_*.json` and `summary_*.json`) to recover recent optimization context.
-5. Run a fresh switch + signal check:
+4. Read latest runtime files under `results/` (`optimize_*.json`, `summary_*.json`, `switch_*.json`, `switch_dual_*.json`, `auto_dual_cycle_*.json`) to recover optimization + live execution context.
+5. Verify unattended runtime config from launchd:
+```bash
+launchctl print gui/$(id -u)/com.crypto-balanced-strategy.auto | rg "run interval|state =|arguments|last exit code"
+```
+6. Run a fresh switch + signal check:
 ```bash
 python3 scripts/profile_switcher.py --capital-cny 10000 --confirmations 2
 ```
-6. Only then provide recommendations, and always include:
+7. Run one dry-run dual cycle health check (no real order):
+```bash
+python3 scripts/auto_dual_cycle.py --aggressive-ratio 0.3 --no-notify
+```
+8. Only then provide recommendations, and always include:
    - `active_profile` used
    - key `params_used`
    - latest `latest_alloc`
+   - latest dual `budget_split` + `target_alloc`
    - holdings diff: `portfolio_snapshot.json` vs `latest_alloc` (what to keep/add/reduce)
 
 If `results/` is empty, run quick optimization first:
@@ -256,16 +282,19 @@ export TELEGRAM_CHAT_IDS=123456789,-100987654321
 python3 scripts/trade_decision_scorecard.py --format both
 ```
 
-3.10 Unattended one-shot cycle (recommended before daemon):
+3.10 Unattended one-shot cycle (current production: dual-sleeve, recommended before daemon):
 ```bash
-# Dry-run unattended cycle (includes switch, plan, risk gates, idempotency state)
-python3 scripts/auto_cycle.py
+# Dry-run dual cycle (includes switch, dual merge, risk gates, idempotency state)
+python3 scripts/auto_dual_cycle.py --aggressive-ratio 0.3 --no-notify
 
-# Live unattended cycle (with optional auto transfer from funding -> trading)
+# Live dual cycle (real order path)
+python3 scripts/auto_dual_cycle.py --live --promote-days 2 --allow-aggressive --aggressive-promote-days 5 --aggressive-ratio 0.3
+
+# Legacy single-sleeve path (kept for compatibility)
 python3 scripts/auto_cycle.py --live --auto-transfer-usdt
 ```
 
-3.11 Run unattended daemon scheduler:
+3.11 Run unattended daemon scheduler (legacy single-sleeve path):
 ```bash
 # Daily run at local 08:05
 python3 scripts/auto_daemon.py --run-at 08:05 --live --auto-transfer-usdt
@@ -274,10 +303,10 @@ python3 scripts/auto_daemon.py --run-at 08:05 --live --auto-transfer-usdt
 python3 scripts/auto_daemon.py --interval-minutes 60 --live --auto-transfer-usdt
 ```
 
-3.12 Launchd deployment (macOS, one run daily at 08:05):
+3.12 Launchd deployment (macOS, current production: every 30 minutes):
 ```bash
 # 1) copy and edit env keys inside plist
-cp scripts/com.crypto-balanced-strategy.auto.balanced.plist ~/Library/LaunchAgents/com.crypto-balanced-strategy.auto.plist
+cp scripts/com.crypto-balanced-strategy.auto.adaptive.plist ~/Library/LaunchAgents/com.crypto-balanced-strategy.auto.plist
 
 # 2) load (or reload)
 launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.crypto-balanced-strategy.auto.plist 2>/dev/null || true
@@ -288,6 +317,7 @@ launchctl kickstart -k gui/$(id -u)/com.crypto-balanced-strategy.auto
 
 # 3) check
 launchctl print gui/$(id -u)/com.crypto-balanced-strategy.auto
+launchctl print gui/$(id -u)/com.crypto-balanced-strategy.auto | rg "run interval|state =|last exit code"
 tail -n 50 /tmp/crypto-balanced-strategy-auto.out.log
 tail -n 50 /tmp/crypto-balanced-strategy-auto.err.log
 ```
@@ -297,29 +327,32 @@ One-command install/reload (read API keys from current shell env):
 export OKX_API_KEY=...
 export OKX_API_SECRET=...
 export OKX_API_PASSPHRASE=...
+bash scripts/install_launchd_agent.sh adaptive
+# other variants:
 bash scripts/install_launchd_agent.sh balanced
-# or
 bash scripts/install_launchd_agent.sh conservative
 bash scripts/install_launchd_agent.sh aggressive
-bash scripts/install_launchd_agent.sh adaptive
 # Optional immediate run:
 bash scripts/install_launchd_agent.sh adaptive --kickstart
 ```
 Note: installer auto-detects current `python3` path and writes it into the LaunchAgent plist.
 Note: installer defaults to `--no-kickstart` (safe install/reload without immediate live run).
 Note: if `TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_IDS` are set when running installer, they are written into LaunchAgent env.
+Note: `adaptive` template is the current production template (`auto_dual_cycle.py`, `--aggressive-ratio 0.3`, `StartInterval=1800`).
 
-3.13 Adaptive tier auto-switch run (recommended unattended mode):
+3.13 Dual-sleeve adaptive auto-switch run (recommended unattended mode):
 ```bash
-# Auto promote conservative -> balanced after 2 deploy days with normal risk
-# Optional aggressive promotion after 5 stable deploy days
-python3 scripts/auto_tier_cycle.py --live --promote-days 2 --allow-aggressive --aggressive-promote-days 5
+# Normal sleeve auto-switch + aggressive sleeve combined, one merged rebalance
+python3 scripts/auto_dual_cycle.py --live --promote-days 2 --allow-aggressive --aggressive-promote-days 5 --aggressive-ratio 0.3
 ```
-Network recovery behavior (adaptive auto-tier):
+Network recovery behavior (dual-sleeve unattended):
 - default enabled: `--network-recover-retry`
 - on network-related failure, waits for connectivity and retries automatically
 - max wait default: `--network-recover-max-wait-minutes 360` (disable with `--no-network-recover-retry`)
-Hot strategy advice behavior (adaptive auto-tier):
+Notification behavior (dual-sleeve unattended):
+- default policy is selective (`fills_or_actionable_failures_only`)
+- no-trade cycles (`noop/skipped/blocked` without pending orders/price errors) do not notify
+Hot strategy advice behavior (legacy `auto_tier_cycle.py` path only):
 - default enabled: `--hot-advice`
 - generates `hot_strategy_advice` section in `auto_tier_*.json`
 - sends extra webhook summary by default (`--hot-advice-notify`, disable with `--no-hot-advice-notify`)
