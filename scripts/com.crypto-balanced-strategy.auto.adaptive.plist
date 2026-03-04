@@ -15,6 +15,11 @@
     <string>--allow-aggressive</string>
     <string>--aggressive-promote-days</string>
     <string>5</string>
+    <string>--network-recover-retry</string>
+    <string>--network-recover-max-wait-minutes</string>
+    <string>360</string>
+    <string>--hot-advice-sandbox-usdt</string>
+    <string>200</string>
     <string>--kill-switch-file</string>
     <string>/Users/rongts/.agents/skills/crypto-balanced-strategy/results/kill_switch</string>
   </array>

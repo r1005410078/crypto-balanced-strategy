@@ -1,0 +1,232 @@
+{
+  "generated_at": "2026-03-04T15:01:07.912895",
+  "profile": "stable",
+  "windows": [
+    180,
+    365,
+    730
+  ],
+  "regime_symbol": "BTCUSDT",
+  "method": {
+    "comparison": "signal_level",
+    "hot_backtest": "proxy_simulation_for_grid_spot_dca_recurring",
+    "confidence_method": "block_bootstrap",
+    "bootstrap_iters": 3000,
+    "bootstrap_block": 7,
+    "confidence": 0.95,
+    "capital_normalization": "Both local and hot are normalized to initial equity = 1.0",
+    "window_alignment": "Same trailing daily windows and end date for both local/hot.",
+    "trade_cost_alignment": {
+      "fee": 0.001,
+      "slip": 0.0005,
+      "total_per_turnover": 0.0015
+    }
+  },
+  "hot_weights_source": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/hot_strategy_advice_20260304_141708.json",
+  "hot_internal_weights": {
+    "grid": 0.3558471442107169,
+    "spot_dca": 0.3277012618467116,
+    "recurring": 0.31645159394257155
+  },
+  "per_window": {
+    "180": {
+      "local": {
+        "cum_return": -0.039877404327479105,
+        "cagr": -0.07920605268585734,
+        "sharpe": -0.9208247934336483,
+        "positive_day_rate": 0.06111111111111111,
+        "active_exposure_rate": 0.11666666666666667,
+        "avg_gross_exposure": 0.06999999999999999,
+        "up_capture": 0.056143933656618225,
+        "down_capture": 0.06482076450811979,
+        "corr_to_btc": 0.2928225384392423
+      },
+      "hot_mix_proxy": {
+        "cum_return": -0.19977953973729323,
+        "cagr": -0.36359925130438064,
+        "sharpe": -1.626387392751363,
+        "positive_day_rate": 0.4666666666666667,
+        "up_capture": 0.46149120080608225,
+        "down_capture": 0.4685318503176362,
+        "corr_to_btc": 0.9526865297533607
+      },
+      "hot_components_proxy": {
+        "grid": {
+          "cum_return": -0.3069829697933334,
+          "cagr": -0.524594683864235,
+          "sharpe": -1.5191773806584452,
+          "positive_day_rate": 0.4666666666666667,
+          "up_capture": 0.8108938080835701,
+          "down_capture": 0.7994810704992489,
+          "corr_to_btc": 0.9641329916853758
+        },
+        "spot_dca": {
+          "cum_return": -0.024003814440536675,
+          "cagr": -0.048074122706717626,
+          "sharpe": -1.8259914485699993,
+          "positive_day_rate": 0.3888888888888889,
+          "up_capture": 0.04418280718913858,
+          "down_capture": 0.047338709303332484,
+          "corr_to_btc": 0.772285831079914
+        },
+        "recurring": {
+          "cum_return": -0.25284352652342523,
+          "cagr": -0.44625887112431306,
+          "sharpe": -1.7092077358696465,
+          "positive_day_rate": 0.4666666666666667,
+          "up_capture": 0.5007343818351455,
+          "down_capture": 0.5325485571345815,
+          "corr_to_btc": 0.9142238826334536
+        }
+      }
+    },
+    "365": {
+      "local": {
+        "cum_return": 0.01730894523339166,
+        "cagr": 0.01730894523339166,
+        "sharpe": 0.1996340835824949,
+        "positive_day_rate": 0.2,
+        "active_exposure_rate": 0.39452054794520547,
+        "avg_gross_exposure": 0.23628073270561525,
+        "up_capture": 0.1921388869202994,
+        "down_capture": 0.1746531018563391,
+        "corr_to_btc": 0.4699943681123562
+      },
+      "hot_mix_proxy": {
+        "cum_return": -0.12031295243620155,
+        "cagr": -0.12031295243620155,
+        "sharpe": -0.590217842033797,
+        "positive_day_rate": 0.4931506849315068,
+        "up_capture": 0.31112747664943663,
+        "down_capture": 0.33318120836175213,
+        "corr_to_btc": 0.8909882084208939
+      },
+      "hot_components_proxy": {
+        "grid": {
+          "cum_return": -0.08642971567700386,
+          "cagr": -0.08642971567700386,
+          "sharpe": -0.17810312512967755,
+          "positive_day_rate": 0.40821917808219177,
+          "up_capture": 0.40786908420086226,
+          "down_capture": 0.4052180522099907,
+          "corr_to_btc": 0.8313661101017902
+        },
+        "spot_dca": {
+          "cum_return": 0.004093329170440585,
+          "cagr": 0.004093329170440585,
+          "sharpe": 0.19719877281685125,
+          "positive_day_rate": 0.4684931506849315,
+          "up_capture": 0.044040930940071145,
+          "down_capture": 0.04050114076319108,
+          "corr_to_btc": 0.8176988174346426
+        },
+        "recurring": {
+          "cum_return": -0.2871874355616102,
+          "cagr": -0.2871874355616102,
+          "sharpe": -1.0413380739354043,
+          "positive_day_rate": 0.4904109589041096,
+          "up_capture": 0.47892367137281033,
+          "down_capture": 0.5552610577077914,
+          "corr_to_btc": 0.8576875187067003
+        }
+      }
+    },
+    "730": {
+      "local": {
+        "cum_return": 0.0680279038017888,
+        "cagr": 0.03345435496774063,
+        "sharpe": 0.2723625930703437,
+        "positive_day_rate": 0.25616438356164384,
+        "active_exposure_rate": 0.5095890410958904,
+        "avg_gross_exposure": 0.2872668517093773,
+        "up_capture": 0.26791488279758774,
+        "down_capture": 0.26261786600040743,
+        "corr_to_btc": 0.646842649151287
+      },
+      "hot_mix_proxy": {
+        "cum_return": 0.08353548013009982,
+        "cagr": 0.04093010338355563,
+        "sharpe": 0.33282298076764194,
+        "positive_day_rate": 0.4986301369863014,
+        "up_capture": 0.2939889724166949,
+        "down_capture": 0.28858643113145205,
+        "corr_to_btc": 0.9410524373553495
+      },
+      "hot_components_proxy": {
+        "grid": {
+          "cum_return": 0.3708382890362678,
+          "cagr": 0.17082803563814086,
+          "sharpe": 0.756272255828911,
+          "positive_day_rate": 0.33013698630136984,
+          "up_capture": 0.3789583176195163,
+          "down_capture": 0.33448645668266047,
+          "corr_to_btc": 0.8052888431732463
+        },
+        "spot_dca": {
+          "cum_return": 0.009980936532682616,
+          "cagr": 0.004978077637856959,
+          "sharpe": 0.42295714095952897,
+          "positive_day_rate": 0.4589041095890411,
+          "up_capture": 0.021476404178392958,
+          "down_capture": 0.020709399490568173,
+          "corr_to_btc": 0.8128244792510352
+        },
+        "recurring": {
+          "cum_return": -0.16621220508981827,
+          "cagr": -0.08688018589553004,
+          "sharpe": -0.18093374120650874,
+          "positive_day_rate": 0.49726027397260275,
+          "up_capture": 0.4806418911427742,
+          "down_capture": 0.5143721425784901,
+          "corr_to_btc": 0.8309461316900348
+        }
+      }
+    }
+  },
+  "bootstrap_365": {
+    "iterations": 3000,
+    "block_size": 7,
+    "confidence": 0.95,
+    "prob_local_outperform": 0.7783333333333333,
+    "ci_local_cum_return": [
+      -0.20430000187970093,
+      0.31593652775661996
+    ],
+    "ci_hot_cum_return": [
+      -0.3737750469441108,
+      0.15040364381028634
+    ],
+    "ci_diff_cum_return": [
+      -0.20007769065030698,
+      0.5262384852794451
+    ],
+    "median_diff_cum_return": 0.1373252176906551
+  },
+  "verdict": "local_higher_but_not_significant",
+  "gate": {
+    "mode": "hold_cash",
+    "risk_rising_used": true,
+    "active_profile": "stable",
+    "target_profile": "stable",
+    "switch_results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/switch_20260304_150107.json"
+  },
+  "allocation_recommendation": {
+    "local_strategy_ratio": 0.9,
+    "hot_strategy_ratio": 0.1,
+    "hot_internal_ratio": {
+      "grid": 0.3558,
+      "spot_dca": 0.3277,
+      "recurring": 0.3165
+    },
+    "gate_block": true,
+    "gate_mode": "hold_cash",
+    "risk_rising_used": true,
+    "amounts_usdt": {
+      "local_strategy": 1169.94,
+      "hot_strategy": 129.99,
+      "hot_grid": 46.26,
+      "hot_spot_dca": 42.6,
+      "hot_recurring": 41.14
+    }
+  }
+}

@@ -57,6 +57,7 @@ class PreflightCheckTests(unittest.TestCase):
             (root / "scripts" / "auto_daemon.py").write_text("x=1\n")
             (root / "scripts" / "auto_tier_cycle.py").write_text("x=1\n")
             (root / "scripts" / "health_check_dryrun.py").write_text("x=1\n")
+            (root / "scripts" / "okx_hot_strategy_advisor.py").write_text("x=1\n")
 
             out = run_preflight(root, check_okx=False)
             self.assertTrue(out["summary"]["ready_core"])

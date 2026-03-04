@@ -146,6 +146,7 @@ def run_preflight(skill_root, check_okx=False, base_url="https://www.okx.com"):
                 "scripts/auto_daemon.py",
                 "scripts/auto_tier_cycle.py",
                 "scripts/health_check_dryrun.py",
+                "scripts/okx_hot_strategy_advisor.py",
             ],
         ),
         check_results_dir(skill_root),

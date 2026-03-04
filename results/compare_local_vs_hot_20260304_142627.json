@@ -1,0 +1,156 @@
+{
+  "generated_at": "2026-03-04T14:26:27.203812",
+  "method": "Local strategy uses engine.backtest; hot strategy uses simplified proxy backtests for grid/spot_dca/recurring on BTC spot.",
+  "weights_hot_internal": {
+    "grid": 0.356,
+    "spot_dca": 0.328,
+    "recurring": 0.316
+  },
+  "local_stable": {
+    "180": {
+      "return": 0.081627,
+      "cagr": 0.172469,
+      "max_drawdown": -0.06186,
+      "vol": 0.149776,
+      "sharpe": 1.137069,
+      "avg_daily_turnover": 0.019654,
+      "bars": 180
+    },
+    "365": {
+      "return": 0.670601,
+      "cagr": 0.670601,
+      "max_drawdown": -0.111433,
+      "vol": 0.229549,
+      "sharpe": 2.350992,
+      "avg_daily_turnover": 0.029675,
+      "bars": 365
+    },
+    "730": {
+      "return": 1.162597,
+      "cagr": 0.470577,
+      "max_drawdown": -0.155326,
+      "vol": 0.243367,
+      "sharpe": 1.705446,
+      "avg_daily_turnover": 0.055834,
+      "bars": 730
+    }
+  },
+  "hot_proxy": {
+    "180": {
+      "grid": {
+        "return": -0.309876,
+        "cagr": -0.528611,
+        "max_drawdown": -0.39574,
+        "vol": 0.427899,
+        "sharpe": -1.53942,
+        "bars": 180
+      },
+      "spot_dca": {
+        "return": -0.024142,
+        "cagr": -0.048347,
+        "max_drawdown": -0.036785,
+        "vol": 0.026713,
+        "sharpe": -1.841607,
+        "bars": 180
+      },
+      "recurring": {
+        "return": -0.256593,
+        "cagr": -0.451879,
+        "max_drawdown": -0.312838,
+        "vol": 0.315994,
+        "sharpe": -1.741674,
+        "bars": 180
+      }
+    },
+    "365": {
+      "grid": {
+        "return": -0.087901,
+        "cagr": -0.087901,
+        "max_drawdown": -0.272499,
+        "vol": 0.281983,
+        "sharpe": -0.184304,
+        "bars": 365
+      },
+      "spot_dca": {
+        "return": 0.004254,
+        "cagr": 0.004254,
+        "max_drawdown": -0.02817,
+        "vol": 0.021917,
+        "sharpe": 0.204634,
+        "bars": 365
+      },
+      "recurring": {
+        "return": -0.290779,
+        "cagr": -0.290779,
+        "max_drawdown": -0.414319,
+        "vol": 0.285413,
+        "sharpe": -1.059018,
+        "bars": 365
+      }
+    },
+    "730": {
+      "grid": {
+        "return": 0.375638,
+        "cagr": 0.172876,
+        "max_drawdown": -0.152233,
+        "vol": 0.248772,
+        "sharpe": 0.763901,
+        "bars": 730
+      },
+      "spot_dca": {
+        "return": 0.010686,
+        "cagr": 0.005329,
+        "max_drawdown": -0.015489,
+        "vol": 0.011903,
+        "sharpe": 0.452456,
+        "bars": 730
+      },
+      "recurring": {
+        "return": -0.170423,
+        "cagr": -0.089189,
+        "max_drawdown": -0.463465,
+        "vol": 0.281644,
+        "sharpe": -0.189883,
+        "bars": 730
+      }
+    }
+  },
+  "hot_mix": {
+    "180": {
+      "return": -0.199318,
+      "cagr": -0.346837,
+      "max_drawdown": -0.251806,
+      "vol": 0.260948,
+      "sharpe": -1.70245,
+      "bars": 180
+    },
+    "365": {
+      "return": -0.121784,
+      "cagr": -0.121784,
+      "max_drawdown": -0.237174,
+      "vol": 0.197765,
+      "sharpe": -0.333142,
+      "bars": 365
+    },
+    "730": {
+      "return": 0.083378,
+      "cagr": 0.035108,
+      "max_drawdown": -0.20573,
+      "vol": 0.181467,
+      "sharpe": 0.360351,
+      "bars": 730
+    }
+  },
+  "allocation_recommendation": {
+    "local_vs_hot": {
+      "local_strategy": 1.0,
+      "hot_strategy_sandbox": 0.0
+    },
+    "hot_internal": {
+      "grid": 0.356,
+      "spot_dca": 0.328,
+      "recurring": 0.316
+    },
+    "gate_context": "hold_cash/risk_rising => cap hot exposure to <=10%"
+  }
+}

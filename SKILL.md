@@ -20,12 +20,13 @@ Use this skill for: 策略设计、反复回测、参数优化、当前仓位信
 - `scripts/okx_auto_executor.py`: OKX spot execution bridge (reads latest signal, builds rebalance plan, dry-run/live execution with guardrails)
 - `scripts/auto_state.py`: unattended cycle state/idempotency/lock helpers
 - `scripts/risk_guard.py`: unattended live-trading risk gates and circuit-breakers
-- `scripts/notifier.py`: webhook notification helper for unattended runs
+- `scripts/notifier.py`: notification helper for unattended runs (webhook + Telegram bot)
 - `scripts/auto_cycle.py`: one-shot unattended cycle (switch -> transfer -> plan -> risk gate -> execute -> persist -> notify)
 - `scripts/auto_daemon.py`: scheduler/daemon wrapper for unattended cycles
 - `scripts/auto_tier_cycle.py`: adaptive tier wrapper (conservative/balanced/aggressive auto-switch + auto_cycle execution)
 - `scripts/health_check_dryrun.py`: daily connectivity health check (1 USDT dry-run plan, no live order)
 - `scripts/trade_decision_scorecard.py`: trade-decision scorecard (fills + realized PnL + cost/discipline scoring + strategy-context recommendations)
+- `scripts/okx_hot_strategy_advisor.py`: auto-select hot OKX strategy types (public marketplace signals) and generate conservative parameter/budget templates
 - `scripts/preflight_check.py`: portability self-check (python/version/files/env/OKX read permission)
 - `profiles.json`: parameter profiles (`stable`, `stable_short_balanced`, `stable_shield`, ...)
 - `dependencies.json`: machine-readable dependency declaration for cross-machine install
@@ -43,6 +44,7 @@ Use this skill for: 策略设计、反复回测、参数优化、当前仓位信
 - `tests/test_auto_cycle.py`: unattended cycle helper/status regression tests
 - `tests/test_auto_tier_cycle.py`: adaptive tier decision regression tests
 - `tests/test_health_check_dryrun.py`: health check summary/normalization regression tests
+- `tests/test_okx_hot_strategy_advisor.py`: hot-strategy parser/scoring/budgeting regression tests
 
 ## Dependencies (Portable Install)
 
@@ -242,6 +244,12 @@ export OKX_API_KEY=...
 export OKX_API_SECRET=...
 export OKX_API_PASSPHRASE=...
 ```
+Optional notification env vars:
+```bash
+export AUTO_WEBHOOK_URLS=https://example.com/webhook1,https://example.com/webhook2
+export TELEGRAM_BOT_TOKEN=123456:ABCDEF...
+export TELEGRAM_CHAT_IDS=123456789,-100987654321
+```
 
 3.9 Generate trade-decision scorecard (JSON + Markdown):
 ```bash
@@ -275,6 +283,7 @@ cp scripts/com.crypto-balanced-strategy.auto.balanced.plist ~/Library/LaunchAgen
 launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.crypto-balanced-strategy.auto.plist 2>/dev/null || true
 launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.crypto-balanced-strategy.auto.plist
 launchctl enable gui/$(id -u)/com.crypto-balanced-strategy.auto
+# Optional immediate run (otherwise wait until next schedule trigger)
 launchctl kickstart -k gui/$(id -u)/com.crypto-balanced-strategy.auto
 
 # 3) check
@@ -293,7 +302,12 @@ bash scripts/install_launchd_agent.sh balanced
 bash scripts/install_launchd_agent.sh conservative
 bash scripts/install_launchd_agent.sh aggressive
 bash scripts/install_launchd_agent.sh adaptive
+# Optional immediate run:
+bash scripts/install_launchd_agent.sh adaptive --kickstart
 ```
+Note: installer auto-detects current `python3` path and writes it into the LaunchAgent plist.
+Note: installer defaults to `--no-kickstart` (safe install/reload without immediate live run).
+Note: if `TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_IDS` are set when running installer, they are written into LaunchAgent env.
 
 3.13 Adaptive tier auto-switch run (recommended unattended mode):
 ```bash
@@ -301,11 +315,29 @@ bash scripts/install_launchd_agent.sh adaptive
 # Optional aggressive promotion after 5 stable deploy days
 python3 scripts/auto_tier_cycle.py --live --promote-days 2 --allow-aggressive --aggressive-promote-days 5
 ```
+Network recovery behavior (adaptive auto-tier):
+- default enabled: `--network-recover-retry`
+- on network-related failure, waits for connectivity and retries automatically
+- max wait default: `--network-recover-max-wait-minutes 360` (disable with `--no-network-recover-retry`)
+Hot strategy advice behavior (adaptive auto-tier):
+- default enabled: `--hot-advice`
+- generates `hot_strategy_advice` section in `auto_tier_*.json`
+- sends extra webhook summary by default (`--hot-advice-notify`, disable with `--no-hot-advice-notify`)
+- default sandbox budget for advisory allocation: `--hot-advice-sandbox-usdt 25`
 
 3.14 Daily dry-run health check (no real orders):
 ```bash
 # Connectivity/auth + market ticker + 1 USDT dry-run plan
 python3 scripts/health_check_dryrun.py --symbol BTCUSDT --notional-usdt 1 --format text
+```
+
+3.15 Auto-select hot OKX strategy templates (semi-auto, recommended):
+```bash
+# conservative defaults; respects main strategy gate (hold_cash/risk_rising)
+python3 scripts/okx_hot_strategy_advisor.py --format text
+
+# optional small sandbox even during hold_cash gate
+python3 scripts/okx_hot_strategy_advisor.py --sandbox-usdt 25 --format json
 ```
 
 Output:

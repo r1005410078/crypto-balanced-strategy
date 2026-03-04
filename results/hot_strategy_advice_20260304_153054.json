@@ -1,0 +1,217 @@
+{
+  "generated_at": "2026-03-04T15:30:54.691604",
+  "source_url": "https://www.okx.com/en-us/trading-bot",
+  "source_note": "Parsed from OKX trading-bot page appState (public SSR data).",
+  "main_strategy_gate": {
+    "mode": "hold_cash",
+    "risk_rising_used": true,
+    "active_profile": "stable",
+    "target_profile": "stable",
+    "switch_results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/switch_20260304_153054.json"
+  },
+  "budget": {
+    "total_usdt": 1299.93744126,
+    "default_ratio": 0.05,
+    "max_budget_usdt": 140.0,
+    "sandbox_usdt": 200.0,
+    "hold_cash_block": true,
+    "recommended_budget_usdt": 200.0
+  },
+  "selected": [
+    {
+      "strategy_type": "grid",
+      "category": "grid",
+      "inst_types": [
+        "SPOT"
+      ],
+      "mp_enabled": true,
+      "optimal_value": 9.82964766741849,
+      "user_count": 646816,
+      "stage": "online",
+      "risk_level": "low",
+      "score": 15.135211,
+      "allocation_usdt": 71.17,
+      "params_template": {
+        "quote_ccy": "USDT",
+        "symbol": "BTC-USDT",
+        "grid_count": 12,
+        "lower_range_pct": 10.0,
+        "upper_range_pct": 10.0,
+        "take_profit_mode": "grid_exit",
+        "max_total_usdt": 71.17
+      }
+    },
+    {
+      "strategy_type": "spot_dca",
+      "category": "average",
+      "inst_types": [
+        "SPOT"
+      ],
+      "mp_enabled": true,
+      "optimal_value": 9.1445036105483,
+      "user_count": 164433,
+      "stage": "online",
+      "risk_level": "low",
+      "score": 13.938085,
+      "allocation_usdt": 65.54,
+      "params_template": {
+        "quote_ccy": "USDT",
+        "entry_mode": "signal_or_pullback",
+        "base_order_usdt": 16.39,
+        "safety_order_count": 3,
+        "safety_order_step_pct": 2.0,
+        "take_profit_pct": 6.0,
+        "stop_loss_pct": 7.0,
+        "max_total_usdt": 65.54
+      }
+    },
+    {
+      "strategy_type": "recurring",
+      "category": "average",
+      "inst_types": [
+        "SPOT"
+      ],
+      "mp_enabled": true,
+      "optimal_value": 4.1160985643456485,
+      "user_count": 121376,
+      "stage": "online",
+      "risk_level": "low",
+      "score": 13.459604,
+      "allocation_usdt": 63.29,
+      "params_template": {
+        "quote_ccy": "USDT",
+        "frequency": "daily",
+        "amount_per_cycle_usdt": 9.04,
+        "horizon_days": 30,
+        "max_total_usdt": 63.29
+      }
+    }
+  ],
+  "all_ranked_count": 9,
+  "all_ranked": [
+    {
+      "strategy_type": "grid",
+      "category": "grid",
+      "inst_types": [
+        "SPOT"
+      ],
+      "mp_enabled": true,
+      "optimal_value": 9.82964766741849,
+      "user_count": 646816,
+      "stage": "online",
+      "risk_level": "low",
+      "score": 15.135211
+    },
+    {
+      "strategy_type": "spot_dca",
+      "category": "average",
+      "inst_types": [
+        "SPOT"
+      ],
+      "mp_enabled": true,
+      "optimal_value": 9.1445036105483,
+      "user_count": 164433,
+      "stage": "online",
+      "risk_level": "low",
+      "score": 13.938085
+    },
+    {
+      "strategy_type": "recurring",
+      "category": "average",
+      "inst_types": [
+        "SPOT"
+      ],
+      "mp_enabled": true,
+      "optimal_value": 4.1160985643456485,
+      "user_count": 121376,
+      "stage": "online",
+      "risk_level": "low",
+      "score": 13.459604
+    },
+    {
+      "strategy_type": "contract_grid",
+      "category": "grid",
+      "inst_types": [
+        "FUTURES",
+        "SWAP"
+      ],
+      "mp_enabled": true,
+      "optimal_value": 84.35469977154786,
+      "user_count": 551382,
+      "stage": "online",
+      "risk_level": "high",
+      "score": 13.019751
+    },
+    {
+      "strategy_type": "contract_dca",
+      "category": "average",
+      "inst_types": [
+        "SWAP"
+      ],
+      "mp_enabled": true,
+      "optimal_value": 84.33213200060486,
+      "user_count": 392244,
+      "stage": "online",
+      "risk_level": "high",
+      "score": 12.979207
+    },
+    {
+      "strategy_type": "smart_portfolio",
+      "category": "arbitrage",
+      "inst_types": [
+        "SPOT"
+      ],
+      "mp_enabled": true,
+      "optimal_value": 0.0,
+      "user_count": 33443,
+      "stage": "online",
+      "risk_level": "low",
+      "score": 11.867628
+    },
+    {
+      "strategy_type": "dcd_bot",
+      "category": "",
+      "inst_types": [
+        "SPOT"
+      ],
+      "mp_enabled": true,
+      "optimal_value": 0.0,
+      "user_count": 29502,
+      "stage": "online",
+      "risk_level": "low",
+      "score": 11.492247
+    },
+    {
+      "strategy_type": "smart_arbitrage",
+      "category": "arbitrage",
+      "inst_types": [
+        "MARGIN",
+        "SPOT",
+        "SWAP"
+      ],
+      "mp_enabled": false,
+      "optimal_value": 0.0,
+      "user_count": 45710,
+      "stage": "online",
+      "risk_level": "high",
+      "score": 9.230094
+    },
+    {
+      "strategy_type": "arbitrage",
+      "category": "arbitrage",
+      "inst_types": [
+        "FUTURES",
+        "MARGIN",
+        "OPTION",
+        "SPOT",
+        "SWAP"
+      ],
+      "mp_enabled": false,
+      "optimal_value": 0.0,
+      "user_count": 23998,
+      "stage": "online",
+      "risk_level": "high",
+      "score": 8.685767
+    }
+  ]
+}

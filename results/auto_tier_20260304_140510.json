@@ -1,0 +1,243 @@
+{
+  "generated_at": "2026-03-04T14:05:09.895748",
+  "tier_state_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_tier_state.json",
+  "selected_tier": "conservative",
+  "tier_preset": {
+    "auto_transfer_usdt": true,
+    "funding_reserve_usdt": 100,
+    "min_transfer_usdt": 10,
+    "max_risk_exposure_pct": 60,
+    "max_total_order_usdt": 400,
+    "max_order_count": 4,
+    "max_price_errors": 0,
+    "max_daily_loss_pct": 1.5
+  },
+  "decision": {
+    "tier_before": "conservative",
+    "tier_after": "conservative",
+    "promoted": false,
+    "demoted": false,
+    "reasons": [
+      "risk_rising=true -> force conservative"
+    ],
+    "normal_risk_streak": 0,
+    "deploy_streak": 0
+  },
+  "flags": {
+    "mode": "hold_cash",
+    "risk_rising": true,
+    "risk_exposure_pct": 0.0,
+    "is_deploy": false
+  },
+  "switch_source": "/opt/miniconda3/bin/python3 /Users/rongts/.agents/skills/crypto-balanced-strategy/scripts/profile_switcher.py --capital-cny 10000 --confirmations 2 --check-window 120 --signal-window 365 --short-threshold -0.03 --shield-threshold -0.015 --risk-mode auto --base-profile stable --short-profile stable_short_balanced --shield-profile stable_shield --symbols BTCUSDT,ETHUSDT,SOLUSDT,BNBUSDT,LINKUSDT --regime-symbol BTCUSDT --limit 1000 --cache-ttl-hours 6",
+  "switch_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/switch_20260304_140509.json",
+  "switch_summary": {
+    "active_profile": "stable",
+    "target_profile": "stable",
+    "risk_rising_used": true,
+    "execution_mode": "hold_cash",
+    "risk_exposure_pct": 0.0
+  },
+  "auto_cycle_command": "/opt/miniconda3/bin/python3 /Users/rongts/.agents/skills/crypto-balanced-strategy/scripts/auto_cycle.py --switch-file /Users/rongts/.agents/skills/crypto-balanced-strategy/results/switch_20260304_140509.json --live --base-url https://www.okx.com --kill-switch-file /Users/rongts/.agents/skills/crypto-balanced-strategy/results/kill_switch --allow-buy --allow-sell --lock-timeout-sec 10.0 --notify-timeout-sec 10 --auto-transfer-usdt --funding-reserve-usdt 100 --min-transfer-usdt 10 --max-risk-exposure-pct 60 --max-total-order-usdt 400 --max-order-count 4 --max-price-errors 0 --max-daily-loss-pct 1.5",
+  "auto_cycle_result": {
+    "generated_at": "2026-03-04T14:05:09.886711",
+    "mode": "LIVE",
+    "cycle_status": "skipped",
+    "skip_reason": "duplicate_cycle_fingerprint",
+    "cycle_fingerprint": "6271fab10957ad73bf92054ec115e352c88def7bf0f34abaa5f0d612a955a7f3",
+    "state_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_state.json",
+    "switch_source": "file:/Users/rongts/.agents/skills/crypto-balanced-strategy/results/switch_20260304_140509.json",
+    "active_profile": "stable",
+    "target_profile": "stable"
+  },
+  "network_recovery": {
+    "enabled": true,
+    "attempts": 1,
+    "retried": false
+  },
+  "hot_strategy_advice": {
+    "status": "ok",
+    "command": "/opt/miniconda3/bin/python3 /Users/rongts/.agents/skills/crypto-balanced-strategy/scripts/okx_hot_strategy_advisor.py --source-url https://www.okx.com/en-us/trading-bot --top-n 3 --default-ratio 0.05 --max-budget-usdt 140.0 --sandbox-usdt 25.0 --format json",
+    "summary": {
+      "recommended_budget_usdt": 25.0,
+      "hold_cash_block": true,
+      "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/hot_strategy_advice_20260304_140510.json",
+      "selected": [
+        {
+          "strategy_type": "grid",
+          "allocation_usdt": 8.9,
+          "risk_level": "low"
+        },
+        {
+          "strategy_type": "spot_dca",
+          "allocation_usdt": 8.19,
+          "risk_level": "low"
+        },
+        {
+          "strategy_type": "recurring",
+          "allocation_usdt": 7.91,
+          "risk_level": "low"
+        }
+      ]
+    },
+    "payload": {
+      "generated_at": "2026-03-04T14:05:10.939988",
+      "source_url": "https://www.okx.com/en-us/trading-bot",
+      "source_note": "Parsed from OKX trading-bot page appState (public SSR data).",
+      "main_strategy_gate": {
+        "mode": "hold_cash",
+        "risk_rising_used": true,
+        "active_profile": "stable",
+        "target_profile": "stable",
+        "switch_results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/switch_20260304_140510.json"
+      },
+      "budget": {
+        "total_usdt": 1299.93559138,
+        "default_ratio": 0.05,
+        "max_budget_usdt": 140.0,
+        "sandbox_usdt": 25.0,
+        "hold_cash_block": true,
+        "recommended_budget_usdt": 25.0
+      },
+      "selected": [
+        {
+          "strategy_type": "grid",
+          "category": "grid",
+          "inst_types": [
+            "SPOT"
+          ],
+          "mp_enabled": true,
+          "optimal_value": 9.82964766741849,
+          "user_count": 646816,
+          "stage": "online",
+          "risk_level": "low",
+          "score": 15.135211,
+          "allocation_usdt": 8.9,
+          "params_template": {
+            "quote_ccy": "USDT",
+            "symbol": "BTC-USDT",
+            "grid_count": 12,
+            "lower_range_pct": 10.0,
+            "upper_range_pct": 10.0,
+            "take_profit_mode": "grid_exit",
+            "max_total_usdt": 8.9
+          }
+        },
+        {
+          "strategy_type": "spot_dca",
+          "category": "average",
+          "inst_types": [
+            "SPOT"
+          ],
+          "mp_enabled": true,
+          "optimal_value": 9.1445036105483,
+          "user_count": 164433,
+          "stage": "online",
+          "risk_level": "low",
+          "score": 13.938085,
+          "allocation_usdt": 8.19,
+          "params_template": {
+            "quote_ccy": "USDT",
+            "entry_mode": "signal_or_pullback",
+            "base_order_usdt": 10.0,
+            "safety_order_count": 3,
+            "safety_order_step_pct": 2.0,
+            "take_profit_pct": 6.0,
+            "stop_loss_pct": 7.0,
+            "max_total_usdt": 8.19
+          }
+        },
+        {
+          "strategy_type": "recurring",
+          "category": "average",
+          "inst_types": [
+            "SPOT"
+          ],
+          "mp_enabled": true,
+          "optimal_value": 4.1160985643456485,
+          "user_count": 121376,
+          "stage": "online",
+          "risk_level": "low",
+          "score": 13.459604,
+          "allocation_usdt": 7.91,
+          "params_template": {
+            "quote_ccy": "USDT",
+            "frequency": "daily",
+            "amount_per_cycle_usdt": 5.0,
+            "horizon_days": 30,
+            "max_total_usdt": 7.91
+          }
+        }
+      ],
+      "all_ranked_count": 5,
+      "all_ranked": [
+        {
+          "strategy_type": "grid",
+          "category": "grid",
+          "inst_types": [
+            "SPOT"
+          ],
+          "mp_enabled": true,
+          "optimal_value": 9.82964766741849,
+          "user_count": 646816,
+          "stage": "online",
+          "risk_level": "low",
+          "score": 15.135211
+        },
+        {
+          "strategy_type": "spot_dca",
+          "category": "average",
+          "inst_types": [
+            "SPOT"
+          ],
+          "mp_enabled": true,
+          "optimal_value": 9.1445036105483,
+          "user_count": 164433,
+          "stage": "online",
+          "risk_level": "low",
+          "score": 13.938085
+        },
+        {
+          "strategy_type": "recurring",
+          "category": "average",
+          "inst_types": [
+            "SPOT"
+          ],
+          "mp_enabled": true,
+          "optimal_value": 4.1160985643456485,
+          "user_count": 121376,
+          "stage": "online",
+          "risk_level": "low",
+          "score": 13.459604
+        },
+        {
+          "strategy_type": "smart_portfolio",
+          "category": "arbitrage",
+          "inst_types": [
+            "SPOT"
+          ],
+          "mp_enabled": true,
+          "optimal_value": 0.0,
+          "user_count": 33443,
+          "stage": "online",
+          "risk_level": "low",
+          "score": 11.867628
+        },
+        {
+          "strategy_type": "dcd_bot",
+          "category": "",
+          "inst_types": [
+            "SPOT"
+          ],
+          "mp_enabled": true,
+          "optimal_value": 0.0,
+          "user_count": 29502,
+          "stage": "online",
+          "risk_level": "low",
+          "score": 11.492247
+        }
+      ],
+      "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/hot_strategy_advice_20260304_140510.json"
+    }
+  }
+}

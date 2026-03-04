@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "last_cycle": {
+    "timestamp": "2026-03-04T06:06:04.563182+00:00",
+    "fingerprint": "6271fab10957ad73bf92054ec115e352c88def7bf0f34abaa5f0d612a955a7f3",
+    "status": "blocked",
+    "details": {
+      "mode": "LIVE",
+      "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_cycle_20260304_140604.json",
+      "execution_counts": {
+        "BLOCKED": 1
+      }
+    }
+  },
+  "daily": {
+    "2026-03-04": {
+      "start_equity_usdt": 1299.935591,
+      "updated_at": "2026-03-04T00:41:50.269711+00:00"
+    }
+  },
+  "history": [
+    {
+      "timestamp": "2026-03-04T00:41:50.270926+00:00",
+      "fingerprint": "6271fab10957ad73bf92054ec115e352c88def7bf0f34abaa5f0d612a955a7f3",
+      "status": "noop",
+      "details": {
+        "mode": "LIVE",
+        "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_cycle_20260304_084150.json",
+        "execution_counts": {}
+      }
+    },
+    {
+      "timestamp": "2026-03-04T06:05:09.886720+00:00",
+      "fingerprint": "6271fab10957ad73bf92054ec115e352c88def7bf0f34abaa5f0d612a955a7f3",
+      "status": "noop",
+      "details": {
+        "skip_reason": "duplicate_cycle_fingerprint"
+      }
+    },
+    {
+      "timestamp": "2026-03-04T06:06:04.563182+00:00",
+      "fingerprint": "6271fab10957ad73bf92054ec115e352c88def7bf0f34abaa5f0d612a955a7f3",
+      "status": "blocked",
+      "details": {
+        "mode": "LIVE",
+        "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_cycle_20260304_140604.json",
+        "execution_counts": {
+          "BLOCKED": 1
+        }
+      }
+    }
+  ]
+}
