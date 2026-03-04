@@ -1,0 +1,149 @@
+{
+  "capital_cny": 10000.0,
+  "base_profile": "stable",
+  "short_profile": "stable_short_balanced",
+  "shield_profile": "stable_shield",
+  "check_window": 120,
+  "signal_window": 365,
+  "short_threshold": -0.03,
+  "shield_threshold": -0.015,
+  "risk_mode": "auto",
+  "risk_rising_used": true,
+  "risk_features": {
+    "regime_symbol": "BTCUSDT",
+    "close": 71737.91,
+    "sma200": 96374.893,
+    "ret20_pct": 4.19,
+    "drawdown60_pct": -26.01,
+    "risk_rising": true
+  },
+  "target_profile": "stable",
+  "switch_reasons": [
+    "base profile within threshold"
+  ],
+  "confirmations": 2,
+  "switched": false,
+  "state_before": {
+    "active_profile": "stable",
+    "pending_target": null,
+    "pending_count": 0,
+    "updated_at": "2026-03-04T18:04:37.934971"
+  },
+  "state_after": {
+    "active_profile": "stable",
+    "pending_target": null,
+    "pending_count": 0,
+    "updated_at": "2026-03-04T18:09:41.002463"
+  },
+  "state_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/profile_switch_state.json",
+  "check_metrics": {
+    "stable": {
+      "return_pct": -0.19,
+      "cagr_pct": -0.56,
+      "max_drawdown_pct": -0.19,
+      "sharpe": -1.824,
+      "avg_daily_turnover": 0.0008
+    },
+    "stable_short_balanced": {
+      "return_pct": -0.37,
+      "cagr_pct": -1.13,
+      "max_drawdown_pct": -0.37,
+      "sharpe": -1.824,
+      "avg_daily_turnover": 0.0017
+    },
+    "stable_shield": {
+      "return_pct": -0.35,
+      "cagr_pct": -1.05,
+      "max_drawdown_pct": -0.35,
+      "sharpe": -2.72,
+      "avg_daily_turnover": 0.0008
+    }
+  },
+  "active_profile": "stable",
+  "active_signal": {
+    "return_pct": 67.06,
+    "cagr_pct": 67.06,
+    "max_drawdown_pct": -11.14,
+    "sharpe": 2.351,
+    "avg_daily_turnover": 0.0297,
+    "final_cny": 16706.01,
+    "profit_cny": 6706.01,
+    "latest_alloc": {
+      "BTCUSDT": 0.0,
+      "ETHUSDT": 0.0,
+      "SOLUSDT": 0.0,
+      "BNBUSDT": 0.0,
+      "LINKUSDT": 0.0,
+      "USDT": 1.0
+    },
+    "regime_symbol_used": "BTCUSDT",
+    "params_used": {
+      "lb_fast": 20,
+      "lb_slow": 60,
+      "sma_filter": 120,
+      "k": 1,
+      "atr_mult": 3.2,
+      "max_w_core": 0.6,
+      "max_w_alt": 0.35,
+      "vol_lb": 20,
+      "target_vol": 0.35,
+      "rebalance_every": 1,
+      "regime_sma": 180,
+      "risk_off_exposure": 0.05,
+      "atr_period": 14,
+      "fee": 0.001,
+      "slip": 0.0005
+    }
+  },
+  "execution_checklist": {
+    "mode": "hold_cash",
+    "risk_exposure_pct": 0.0,
+    "capital_plan_cny": {
+      "BTCUSDT": 0.0,
+      "ETHUSDT": 0.0,
+      "SOLUSDT": 0.0,
+      "BNBUSDT": 0.0,
+      "LINKUSDT": 0.0,
+      "USDT": 10000.0
+    },
+    "actions": [
+      {
+        "step": 1,
+        "type": "status",
+        "instruction": "Active profile: stable",
+        "reasons": [
+          "base profile within threshold"
+        ]
+      },
+      {
+        "step": 2,
+        "type": "hold",
+        "instruction": "No risk assets in latest allocation; keep capital in USDT/cash-equivalent.",
+        "capital_plan_cny": {
+          "USDT": 10000.0
+        }
+      },
+      {
+        "step": 3,
+        "type": "monitor",
+        "instruction": "Re-run switcher daily. Deploy only when non-cash allocation appears for active profile."
+      }
+    ],
+    "guardrails": [
+      {
+        "rule": "regime_risk",
+        "instruction": "If BTC close remains below SMA200 and 60-day drawdown worsens, force profile to stable_shield.",
+        "close": 71737.91,
+        "sma200": 96374.893,
+        "drawdown60_pct": -26.01
+      },
+      {
+        "rule": "risk_budget",
+        "instruction": "If live drawdown exceeds strategy 120-day drawdown by 30%, cut risk exposure to 0.",
+        "strategy_mdd120_pct": -0.19,
+        "trigger_live_drawdown_pct": 0.24
+      }
+    ],
+    "next_check_command": "python3 scripts/profile_switcher.py --capital-cny 10000 --confirmations 2 --check-window 120 --signal-window 365"
+  }
+}

@@ -1,12 +1,12 @@
 {
   "version": 1,
   "last_cycle": {
-    "timestamp": "2026-03-04T06:06:04.563182+00:00",
-    "fingerprint": "6271fab10957ad73bf92054ec115e352c88def7bf0f34abaa5f0d612a955a7f3",
+    "timestamp": "2026-03-04T10:43:04.254831+00:00",
+    "fingerprint": "05fb998bed76b8b5dd45d330685293816569418b35ce96c3e1c3f5b317a36010",
     "status": "blocked",
     "details": {
       "mode": "LIVE",
-      "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_cycle_20260304_140604.json",
+      "results_file": null,
       "execution_counts": {
         "BLOCKED": 1
       }
@@ -44,6 +44,200 @@
       "details": {
         "mode": "LIVE",
         "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_cycle_20260304_140604.json",
+        "execution_counts": {
+          "BLOCKED": 1
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-04T07:37:19.883444+00:00",
+      "fingerprint": "6271fab10957ad73bf92054ec115e352c88def7bf0f34abaa5f0d612a955a7f3",
+      "status": "noop",
+      "details": {
+        "mode": "DRY_RUN",
+        "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_cycle_20260304_153719.json",
+        "execution_counts": {}
+      }
+    },
+    {
+      "timestamp": "2026-03-04T07:37:30.994581+00:00",
+      "fingerprint": "6271fab10957ad73bf92054ec115e352c88def7bf0f34abaa5f0d612a955a7f3",
+      "status": "noop",
+      "details": {
+        "skip_reason": "duplicate_cycle_fingerprint"
+      }
+    },
+    {
+      "timestamp": "2026-03-04T07:37:40.787119+00:00",
+      "fingerprint": "6271fab10957ad73bf92054ec115e352c88def7bf0f34abaa5f0d612a955a7f3",
+      "status": "noop",
+      "details": {
+        "mode": "DRY_RUN",
+        "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_cycle_20260304_153740.json",
+        "execution_counts": {}
+      }
+    },
+    {
+      "timestamp": "2026-03-04T08:12:58.210063+00:00",
+      "fingerprint": "4d77221e3b65b94ac38bde74676987b9e8f18247954061409732fed3e751e08c",
+      "status": "noop",
+      "details": {
+        "mode": "DRY_RUN",
+        "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_cycle_20260304_161258.json",
+        "execution_counts": {}
+      }
+    },
+    {
+      "timestamp": "2026-03-04T09:51:44.968212+00:00",
+      "fingerprint": "6271fab10957ad73bf92054ec115e352c88def7bf0f34abaa5f0d612a955a7f3",
+      "status": "blocked",
+      "details": {
+        "mode": "LIVE",
+        "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_cycle_20260304_175144.json",
+        "execution_counts": {
+          "BLOCKED": 1
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-04T09:53:24.279158+00:00",
+      "fingerprint": "6271fab10957ad73bf92054ec115e352c88def7bf0f34abaa5f0d612a955a7f3",
+      "status": "blocked",
+      "details": {
+        "mode": "LIVE",
+        "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_cycle_20260304_175324.json",
+        "execution_counts": {
+          "BLOCKED": 1
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-04T09:59:36.597863+00:00",
+      "fingerprint": "6271fab10957ad73bf92054ec115e352c88def7bf0f34abaa5f0d612a955a7f3",
+      "status": "blocked",
+      "details": {
+        "mode": "LIVE",
+        "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_cycle_20260304_175936.json",
+        "execution_counts": {
+          "BLOCKED": 1
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-04T10:04:39.764032+00:00",
+      "fingerprint": "6271fab10957ad73bf92054ec115e352c88def7bf0f34abaa5f0d612a955a7f3",
+      "status": "blocked",
+      "details": {
+        "mode": "LIVE",
+        "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_cycle_20260304_180439.json",
+        "execution_counts": {
+          "BLOCKED": 1
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-04T10:09:42.885296+00:00",
+      "fingerprint": "6271fab10957ad73bf92054ec115e352c88def7bf0f34abaa5f0d612a955a7f3",
+      "status": "blocked",
+      "details": {
+        "mode": "LIVE",
+        "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_cycle_20260304_180942.json",
+        "execution_counts": {
+          "BLOCKED": 1
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-04T10:13:21.060586+00:00",
+      "fingerprint": "6271fab10957ad73bf92054ec115e352c88def7bf0f34abaa5f0d612a955a7f3",
+      "status": "blocked",
+      "details": {
+        "mode": "LIVE",
+        "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_cycle_20260304_181321.json",
+        "execution_counts": {
+          "BLOCKED": 1
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-04T10:13:32.900798+00:00",
+      "fingerprint": "6271fab10957ad73bf92054ec115e352c88def7bf0f34abaa5f0d612a955a7f3",
+      "status": "blocked",
+      "details": {
+        "mode": "LIVE",
+        "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_cycle_20260304_181332.json",
+        "execution_counts": {
+          "BLOCKED": 1
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-04T10:31:16.624639+00:00",
+      "fingerprint": "de7cf128e471064d164accb1b97e4952a23a86db4f796f83290047340fa57cc1",
+      "status": "blocked",
+      "details": {
+        "mode": "LIVE",
+        "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_dual_cycle_20260304_183116.json",
+        "execution_counts": {
+          "BLOCKED": 1
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-04T10:31:24.047391+00:00",
+      "fingerprint": "de7cf128e471064d164accb1b97e4952a23a86db4f796f83290047340fa57cc1",
+      "status": "blocked",
+      "details": {
+        "mode": "LIVE",
+        "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_dual_cycle_20260304_183124.json",
+        "execution_counts": {
+          "BLOCKED": 1
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-04T10:34:57.687433+00:00",
+      "fingerprint": "05fb998bed76b8b5dd45d330685293816569418b35ce96c3e1c3f5b317a36010",
+      "status": "blocked",
+      "details": {
+        "mode": "LIVE",
+        "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_dual_cycle_20260304_183457.json",
+        "execution_counts": {
+          "BLOCKED": 1
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-04T10:35:27.792634+00:00",
+      "fingerprint": "05fb998bed76b8b5dd45d330685293816569418b35ce96c3e1c3f5b317a36010",
+      "status": "blocked",
+      "details": {
+        "mode": "LIVE",
+        "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_dual_cycle_20260304_183527.json",
+        "execution_counts": {
+          "BLOCKED": 1
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-04T10:41:51.473406+00:00",
+      "fingerprint": "05fb998bed76b8b5dd45d330685293816569418b35ce96c3e1c3f5b317a36010",
+      "status": "blocked",
+      "details": {
+        "mode": "LIVE",
+        "results_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_dual_cycle_20260304_184151.json",
+        "execution_counts": {
+          "BLOCKED": 1
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-04T10:43:04.254831+00:00",
+      "fingerprint": "05fb998bed76b8b5dd45d330685293816569418b35ce96c3e1c3f5b317a36010",
+      "status": "blocked",
+      "details": {
+        "mode": "LIVE",
+        "results_file": null,
         "execution_counts": {
           "BLOCKED": 1
         }

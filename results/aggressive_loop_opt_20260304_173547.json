@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-03-04T17:35:47.722807",
+  "profile": "aggressive",
+  "symbols": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "SOLUSDT",
+    "BNBUSDT",
+    "LINKUSDT"
+  ],
+  "regime_symbol": "BTCUSDT",
+  "windows": [
+    60,
+    120,
+    180,
+    365,
+    730
+  ],
+  "rounds_requested": 6,
+  "rounds_executed": 6,
+  "candidates_per_round": 1800,
+  "hard_constraints": {
+    "min_return_120": 0.015,
+    "min_return_180": 0.01,
+    "min_return_365": 0.25,
+    "min_return_730": 0.2,
+    "max_drawdown_730_abs": 0.3
+  },
+  "baseline": null,
+  "best": null,
+  "satisfied": false,
+  "updated_profile": null,
+  "elapsed_sec": 287.64,
+  "round_details": [
+    {
+      "round": 1,
+      "candidate_count": 0,
+      "improved": false,
+      "best_score": null,
+      "round_best_score": null,
+      "best_satisfied": false,
+      "top3": []
+    },
+    {
+      "round": 2,
+      "candidate_count": 0,
+      "improved": false,
+      "best_score": null,
+      "round_best_score": null,
+      "best_satisfied": false,
+      "top3": []
+    },
+    {
+      "round": 3,
+      "candidate_count": 0,
+      "improved": false,
+      "best_score": null,
+      "round_best_score": null,
+      "best_satisfied": false,
+      "top3": []
+    },
+    {
+      "round": 4,
+      "candidate_count": 0,
+      "improved": false,
+      "best_score": null,
+      "round_best_score": null,
+      "best_satisfied": false,
+      "top3": []
+    },
+    {
+      "round": 5,
+      "candidate_count": 0,
+      "improved": false,
+      "best_score": null,
+      "round_best_score": null,
+      "best_satisfied": false,
+      "top3": []
+    },
+    {
+      "round": 6,
+      "candidate_count": 0,
+      "improved": false,
+      "best_score": null,
+      "round_best_score": null,
+      "best_satisfied": false,
+      "top3": []
+    }
+  ]
+}

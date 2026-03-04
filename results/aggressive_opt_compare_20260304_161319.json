@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-03-04T16:13:18.951898",
+  "profile": "aggressive",
+  "before_params": {
+    "lb_fast": 20,
+    "lb_slow": 60,
+    "sma_filter": 80,
+    "k": 2,
+    "atr_mult": 2.2,
+    "max_w_core": 0.7,
+    "max_w_alt": 0.4,
+    "vol_lb": 20,
+    "target_vol": 0.45,
+    "rebalance_every": 1,
+    "regime_sma": 200,
+    "risk_off_exposure": 0.6,
+    "atr_period": 14,
+    "fee": 0.001,
+    "slip": 0.0005
+  },
+  "after_params": {
+    "lb_fast": 30,
+    "lb_slow": 60,
+    "sma_filter": 100,
+    "k": 2,
+    "atr_mult": 2.8,
+    "max_w_core": 0.6,
+    "max_w_alt": 0.3,
+    "vol_lb": 20,
+    "target_vol": 0.28,
+    "rebalance_every": 7,
+    "regime_sma": 200,
+    "risk_off_exposure": 0.4,
+    "atr_period": 14,
+    "fee": 0.001,
+    "slip": 0.0005
+  },
+  "windows": {
+    "120": {
+      "before": {
+        "return_pct": -10.36,
+        "max_drawdown_pct": -10.36,
+        "sharpe": -3.757,
+        "avg_daily_turnover": 0.032
+      },
+      "after": {
+        "return_pct": 0.0,
+        "max_drawdown_pct": 0.0,
+        "sharpe": 0.0,
+        "avg_daily_turnover": 0.0
+      },
+      "delta": {
+        "return_pct": 10.36,
+        "max_drawdown_pct": 10.36,
+        "sharpe": 3.757,
+        "avg_daily_turnover": -0.032
+      }
+    },
+    "180": {
+      "before": {
+        "return_pct": -14.87,
+        "max_drawdown_pct": -26.65,
+        "sharpe": -0.994,
+        "avg_daily_turnover": 0.0946
+      },
+      "after": {
+        "return_pct": -3.78,
+        "max_drawdown_pct": -13.12,
+        "sharpe": -0.315,
+        "avg_daily_turnover": 0.0197
+      },
+      "delta": {
+        "return_pct": 11.09,
+        "max_drawdown_pct": 13.54,
+        "sharpe": 0.679,
+        "avg_daily_turnover": -0.0749
+      }
+    },
+    "365": {
+      "before": {
+        "return_pct": 43.3,
+        "max_drawdown_pct": -26.65,
+        "sharpe": 1.167,
+        "avg_daily_turnover": 0.0909
+      },
+      "after": {
+        "return_pct": 45.9,
+        "max_drawdown_pct": -10.59,
+        "sharpe": 1.617,
+        "avg_daily_turnover": 0.0292
+      },
+      "delta": {
+        "return_pct": 2.6,
+        "max_drawdown_pct": 16.07,
+        "sharpe": 0.45,
+        "avg_daily_turnover": -0.0618
+      }
+    },
+    "730": {
+      "before": {
+        "return_pct": 43.33,
+        "max_drawdown_pct": -36.5,
+        "sharpe": 0.658,
+        "avg_daily_turnover": 0.1322
+      },
+      "after": {
+        "return_pct": 17.03,
+        "max_drawdown_pct": -39.88,
+        "sharpe": 0.428,
+        "avg_daily_turnover": 0.0456
+      },
+      "delta": {
+        "return_pct": -26.3,
+        "max_drawdown_pct": -3.39,
+        "sharpe": -0.231,
+        "avg_daily_turnover": -0.0866
+      }
+    }
+  },
+  "summary": {
+    "improves_near_term": "120/180/365 windows improved on return-drawdown efficiency",
+    "tradeoff_long_term": "730-day return weaker and drawdown slightly higher",
+    "intended_use": "Suitable for 200U aggressive sleeve, not for replacing stable core profile."
+  }
+}

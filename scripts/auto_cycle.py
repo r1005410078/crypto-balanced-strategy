@@ -144,6 +144,67 @@ def _build_market_snapshot(client, target_alloc, balances):
     return prices, spreads, price_errors
 
 
+def _compute_equity_usdt(balances, prices):
+    equity = 0.0
+    for sym, qty in (balances or {}).items():
+        q = _safe_float(qty, 0.0)
+        if str(sym).upper() == "USDT":
+            equity += q
+            continue
+        px = _safe_float((prices or {}).get(sym, 0.0), 0.0)
+        if px > 0:
+            equity += q * px
+    return max(0.0, float(equity))
+
+
+def _apply_strategy_budget(target_alloc, *, equity_usdt, strategy_budget_usdt):
+    """
+    Scale strategy target to a fixed budget on full-account equity basis.
+
+    Example:
+    - Full equity 1300, strategy budget 200 => scale ~= 0.1538
+    - A 100% risk target becomes 15.38% full-account risk target.
+    """
+    base = dict(target_alloc or {})
+    eq = max(0.0, float(equity_usdt or 0.0))
+    budget = None if strategy_budget_usdt is None else max(0.0, float(strategy_budget_usdt))
+    if eq <= 0 or budget is None:
+        return base, {
+            "enabled": False,
+            "equity_usdt": round(eq, 8),
+            "requested_budget_usdt": None if budget is None else round(budget, 8),
+            "applied_budget_usdt": None if budget is None else round(min(eq, budget), 8),
+            "scale": 1.0,
+        }
+
+    applied = min(eq, budget)
+    scale = applied / eq
+    effective = {}
+    risk_sum = 0.0
+    for sym, w in base.items():
+        k = str(sym).upper()
+        if k == "USDT":
+            continue
+        ww = max(0.0, _safe_float(w, 0.0))
+        ew = ww * scale
+        effective[k] = ew
+        risk_sum += ew
+    effective["USDT"] = max(0.0, 1.0 - risk_sum)
+
+    total = sum(effective.values())
+    if total > 0:
+        for k in list(effective.keys()):
+            effective[k] = effective[k] / total
+
+    return effective, {
+        "enabled": True,
+        "equity_usdt": round(eq, 8),
+        "requested_budget_usdt": round(budget, 8),
+        "applied_budget_usdt": round(applied, 8),
+        "scale": round(scale, 8),
+    }
+
+
 def _execute_orders(client, orders, live):
     execution = []
     for i, od in enumerate(orders, start=1):
@@ -216,6 +277,12 @@ def main():
     p.add_argument("--max-order-count", type=int, default=20)
     p.add_argument("--max-price-errors", type=int, default=0)
     p.add_argument("--max-daily-loss-pct", type=float, default=3.0)
+    p.add_argument(
+        "--strategy-budget-usdt",
+        type=float,
+        default=None,
+        help="Optional fixed budget for self strategy on full-account equity basis (e.g. 200).",
+    )
     p.add_argument("--kill-switch-file", type=str, default=None)
 
     p.add_argument("--state-file", type=str, default=None)
@@ -296,7 +363,7 @@ def main():
             print(json.dumps(out, ensure_ascii=False, indent=2))
             return
 
-        target_alloc = normalize_target_alloc(switch_payload["active_signal"]["latest_alloc"])
+        target_alloc_signal = normalize_target_alloc(switch_payload["active_signal"]["latest_alloc"])
         client = OkxClient(
             api_key=api_key,
             api_secret=api_secret,
@@ -308,7 +375,13 @@ def main():
 
         transfer_result = _transfer_funding_if_needed(client, args)
         balances = client.get_spot_balances()
-        prices, spreads, price_errors = _build_market_snapshot(client, target_alloc, balances)
+        prices, spreads, price_errors = _build_market_snapshot(client, target_alloc_signal, balances)
+        equity_usdt = _compute_equity_usdt(balances, prices)
+        target_alloc, budget_info = _apply_strategy_budget(
+            target_alloc_signal,
+            equity_usdt=equity_usdt,
+            strategy_budget_usdt=args.strategy_budget_usdt,
+        )
         plan = build_rebalance_plan(
             target_weights=target_alloc,
             balances=balances,
@@ -363,7 +436,9 @@ def main():
             "active_profile": switch_payload.get("active_profile"),
             "target_profile": switch_payload.get("target_profile"),
             "switch_payload": switch_payload,
+            "target_alloc_signal": target_alloc_signal,
             "target_alloc": target_alloc,
+            "strategy_budget": budget_info,
             "funding_transfer": transfer_result,
             "balances": balances,
             "prices": prices,
@@ -402,6 +477,7 @@ def main():
                 "execution_counts": execution_counts,
                 "risk_ok": guards.get("ok"),
                 "risk_reasons": guards.get("reasons"),
+                "strategy_budget": budget_info,
                 "results_file": out.get("results_file"),
             }
             out["notify_results"] = notify_all(

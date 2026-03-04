@@ -1,0 +1,267 @@
+{
+  "generated_at": "2026-03-04T16:12:58.209025",
+  "mode": "DRY_RUN",
+  "cycle_status": "noop",
+  "cycle_fingerprint": "4d77221e3b65b94ac38bde74676987b9e8f18247954061409732fed3e751e08c",
+  "switch_source": "file:/Users/rongts/.agents/skills/crypto-balanced-strategy/results/switch_20260304_161256.json",
+  "state_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_state.json",
+  "lock_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/auto_cycle.lock",
+  "kill_switch_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/kill_switch",
+  "active_profile": "aggressive",
+  "target_profile": "aggressive",
+  "switch_payload": {
+    "capital_cny": 10000.0,
+    "base_profile": "aggressive",
+    "short_profile": "aggressive",
+    "shield_profile": "aggressive",
+    "check_window": 120,
+    "signal_window": 365,
+    "short_threshold": -0.03,
+    "shield_threshold": -0.015,
+    "risk_mode": "auto",
+    "risk_rising_used": true,
+    "risk_features": {
+      "regime_symbol": "BTCUSDT",
+      "close": 68565.7,
+      "sma200": 96359.032,
+      "ret20_pct": -0.42,
+      "drawdown60_pct": -29.28,
+      "risk_rising": true
+    },
+    "target_profile": "aggressive",
+    "switch_reasons": [
+      "base profile within threshold"
+    ],
+    "confirmations": 2,
+    "switched": false,
+    "state_before": {
+      "active_profile": "aggressive",
+      "pending_target": null,
+      "pending_count": 0,
+      "updated_at": "2026-03-04T16:12:47.742518"
+    },
+    "state_after": {
+      "active_profile": "aggressive",
+      "pending_target": null,
+      "pending_count": 0,
+      "updated_at": "2026-03-04T16:12:56.600799"
+    },
+    "state_file": "/Users/rongts/.agents/skills/crypto-balanced-strategy/results/profile_switch_state.json",
+    "check_metrics": {
+      "aggressive": {
+        "return_pct": 0.0,
+        "cagr_pct": 0.0,
+        "max_drawdown_pct": 0.0,
+        "sharpe": 0.0,
+        "avg_daily_turnover": 0.0
+      }
+    },
+    "active_profile": "aggressive",
+    "active_signal": {
+      "return_pct": 45.9,
+      "cagr_pct": 45.9,
+      "max_drawdown_pct": -10.59,
+      "sharpe": 1.617,
+      "avg_daily_turnover": 0.0292,
+      "final_cny": 14589.86,
+      "profit_cny": 4589.86,
+      "latest_alloc": {
+        "BTCUSDT": 0.0,
+        "ETHUSDT": 0.0,
+        "SOLUSDT": 0.0,
+        "BNBUSDT": 0.0,
+        "LINKUSDT": 0.0,
+        "USDT": 1.0
+      },
+      "regime_symbol_used": "BTCUSDT",
+      "params_used": {
+        "lb_fast": 30,
+        "lb_slow": 60,
+        "sma_filter": 100,
+        "k": 2,
+        "atr_mult": 2.8,
+        "max_w_core": 0.6,
+        "max_w_alt": 0.3,
+        "vol_lb": 20,
+        "target_vol": 0.28,
+        "rebalance_every": 7,
+        "regime_sma": 200,
+        "risk_off_exposure": 0.4,
+        "atr_period": 14,
+        "fee": 0.001,
+        "slip": 0.0005
+      }
+    },
+    "execution_checklist": {
+      "mode": "hold_cash",
+      "risk_exposure_pct": 0.0,
+      "capital_plan_cny": {
+        "BTCUSDT": 0.0,
+        "ETHUSDT": 0.0,
+        "SOLUSDT": 0.0,
+        "BNBUSDT": 0.0,
+        "LINKUSDT": 0.0,
+        "USDT": 10000.0
+      },
+      "actions": [
+        {
+          "step": 1,
+          "type": "status",
+          "instruction": "Active profile: aggressive",
+          "reasons": [
+            "base profile within threshold"
+          ]
+        },
+        {
+          "step": 2,
+          "type": "hold",
+          "instruction": "No risk assets in latest allocation; keep capital in USDT/cash-equivalent.",
+          "capital_plan_cny": {
+            "USDT": 10000.0
+          }
+        },
+        {
+          "step": 3,
+          "type": "monitor",
+          "instruction": "Re-run switcher daily. Deploy only when non-cash allocation appears for active profile."
+        }
+      ],
+      "guardrails": [
+        {
+          "rule": "regime_risk",
+          "instruction": "If BTC close remains below SMA200 and 60-day drawdown worsens, force profile to stable_shield.",
+          "close": 68565.7,
+          "sma200": 96359.032,
+          "drawdown60_pct": -29.28
+        },
+        {
+          "rule": "risk_budget",
+          "instruction": "If live drawdown exceeds strategy 120-day drawdown by 30%, cut risk exposure to 0.",
+          "strategy_mdd120_pct": 0.0,
+          "trigger_live_drawdown_pct": 0.0
+        }
+      ],
+      "next_check_command": "python3 scripts/profile_switcher.py --capital-cny 10000 --confirmations 2 --check-window 120 --signal-window 365"
+    }
+  },
+  "target_alloc_signal": {
+    "BTC": 0.0,
+    "ETH": 0.0,
+    "SOL": 0.0,
+    "BNB": 0.0,
+    "LINK": 0.0,
+    "USDT": 1.0
+  },
+  "target_alloc": {
+    "BTC": 0.0,
+    "ETH": 0.0,
+    "SOL": 0.0,
+    "BNB": 0.0,
+    "LINK": 0.0,
+    "USDT": 1.0
+  },
+  "strategy_budget": {
+    "enabled": true,
+    "equity_usdt": 1200.12704433,
+    "requested_budget_usdt": 200.0,
+    "applied_budget_usdt": 200.0,
+    "scale": 0.16664902
+  },
+  "funding_transfer": {
+    "enabled": true,
+    "execute_in_dry_run": false,
+    "funding_usdt_before": 100.00184988,
+    "planned_transfer_usdt": 0.00184988,
+    "min_transfer_usdt": 10.0,
+    "status": "TOO_SMALL",
+    "transfer": null
+  },
+  "balances": {
+    "USDT": 1200.1270443262174
+  },
+  "prices": {
+    "BNB": 640.9,
+    "BTC": 69387.0,
+    "ETH": 2008.85,
+    "LINK": 8.927,
+    "SOL": 87.25
+  },
+  "spreads_bps": {
+    "BNB": 1.5604,
+    "BTC": 0.0144,
+    "ETH": 0.0498,
+    "LINK": 1.1203,
+    "SOL": 1.1461
+  },
+  "price_errors": [],
+  "plan": {
+    "equity_usdt": 1200.127044,
+    "current_values_usdt": {
+      "BNB": 0.0,
+      "BTC": 0.0,
+      "ETH": 0.0,
+      "LINK": 0.0,
+      "SOL": 0.0,
+      "USDT": 1200.127044
+    },
+    "target_values_usdt": {
+      "BNB": 0.0,
+      "BTC": 0.0,
+      "ETH": 0.0,
+      "LINK": 0.0,
+      "SOL": 0.0,
+      "USDT": 1200.127044
+    },
+    "diffs_usdt": {
+      "BNB": 0.0,
+      "BTC": 0.0,
+      "ETH": 0.0,
+      "LINK": 0.0,
+      "SOL": 0.0,
+      "USDT": 0.0
+    },
+    "current_weights": {
+      "BNB": 0.0,
+      "BTC": 0.0,
+      "ETH": 0.0,
+      "LINK": 0.0,
+      "SOL": 0.0,
+      "USDT": 1.0
+    },
+    "target_weights": {
+      "BTC": 0.0,
+      "ETH": 0.0,
+      "SOL": 0.0,
+      "BNB": 0.0,
+      "LINK": 0.0,
+      "USDT": 1.0
+    },
+    "orders": [],
+    "skipped": []
+  },
+  "risk_guards": {
+    "ok": false,
+    "reasons": [
+      "daily pnl -7.68% breached loss limit -1.50%"
+    ],
+    "metrics": {
+      "risk_exposure_pct": 0.0,
+      "total_order_notional_usdt": 0.0,
+      "order_count": 0,
+      "price_errors_count": 0,
+      "day_pnl_pct": -7.678,
+      "auto_trading_enabled": true,
+      "live_mode": false
+    }
+  },
+  "day_pnl": {
+    "day": "2026-03-04",
+    "start_equity_usdt": 1299.935591,
+    "current_equity_usdt": 1200.127044,
+    "pnl_usdt": -99.808547,
+    "pnl_pct": -7.678
+  },
+  "day_start_equity_usdt": 1299.935591,
+  "execution": [],
+  "execution_counts": {}
+}

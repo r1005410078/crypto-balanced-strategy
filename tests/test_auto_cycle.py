@@ -7,7 +7,7 @@ from types import SimpleNamespace
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from auto_cycle import _build_switch_cmd, _cycle_status  # noqa: E402
+from auto_cycle import _apply_strategy_budget, _build_switch_cmd, _cycle_status  # noqa: E402
 
 
 class AutoCycleTests(unittest.TestCase):
@@ -66,6 +66,21 @@ class AutoCycleTests(unittest.TestCase):
         self.assertIn("--capital-cny", cmd)
         self.assertIn("--signal-window", cmd)
         self.assertIn("--symbols", cmd)
+
+    def test_apply_strategy_budget_scales_risk_weights(self):
+        target = {"BTC": 0.6, "ETH": 0.4}
+        effective, info = _apply_strategy_budget(target, equity_usdt=1000, strategy_budget_usdt=200)
+        self.assertTrue(info["enabled"])
+        self.assertAlmostEqual(info["scale"], 0.2, places=6)
+        self.assertAlmostEqual(effective["BTC"], 0.12, places=6)
+        self.assertAlmostEqual(effective["ETH"], 0.08, places=6)
+        self.assertAlmostEqual(effective["USDT"], 0.8, places=6)
+
+    def test_apply_strategy_budget_none_keeps_target(self):
+        target = {"BTC": 0.5, "USDT": 0.5}
+        effective, info = _apply_strategy_budget(target, equity_usdt=1000, strategy_budget_usdt=None)
+        self.assertFalse(info["enabled"])
+        self.assertEqual(effective, target)
 
 
 if __name__ == "__main__":

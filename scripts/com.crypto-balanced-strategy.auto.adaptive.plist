@@ -8,7 +8,7 @@
   <key>ProgramArguments</key>
   <array>
     <string>/usr/bin/python3</string>
-    <string>/Users/rongts/.agents/skills/crypto-balanced-strategy/scripts/auto_tier_cycle.py</string>
+    <string>/Users/rongts/.agents/skills/crypto-balanced-strategy/scripts/auto_dual_cycle.py</string>
     <string>--live</string>
     <string>--promote-days</string>
     <string>2</string>
@@ -18,8 +18,8 @@
     <string>--network-recover-retry</string>
     <string>--network-recover-max-wait-minutes</string>
     <string>360</string>
-    <string>--hot-advice-sandbox-usdt</string>
-    <string>200</string>
+    <string>--aggressive-ratio</string>
+    <string>0.3</string>
     <string>--kill-switch-file</string>
     <string>/Users/rongts/.agents/skills/crypto-balanced-strategy/results/kill_switch</string>
   </array>
@@ -39,16 +39,11 @@
     <string>true</string>
   </dict>
 
-  <key>StartCalendarInterval</key>
-  <dict>
-    <key>Hour</key>
-    <integer>8</integer>
-    <key>Minute</key>
-    <integer>5</integer>
-  </dict>
+  <key>StartInterval</key>
+  <integer>1800</integer>
 
   <key>RunAtLoad</key>
-  <false/>
+  <true/>
 
   <key>StandardOutPath</key>
   <string>/tmp/crypto-balanced-strategy-auto.out.log</string>

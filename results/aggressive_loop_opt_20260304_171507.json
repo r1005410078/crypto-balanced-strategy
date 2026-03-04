@@ -1,0 +1,2351 @@
+{
+  "generated_at": "2026-03-04T17:15:07.843426",
+  "profile": "aggressive",
+  "symbols": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "SOLUSDT",
+    "BNBUSDT",
+    "LINKUSDT"
+  ],
+  "regime_symbol": "BTCUSDT",
+  "windows": [
+    60,
+    120,
+    180,
+    365,
+    730
+  ],
+  "rounds_requested": 12,
+  "rounds_executed": 12,
+  "candidates_per_round": 1000,
+  "baseline": {
+    "score": 0.3881,
+    "satisfied": false,
+    "params": {
+      "lb_fast": 15,
+      "lb_slow": 80,
+      "sma_filter": 80,
+      "k": 1,
+      "atr_mult": 3.2,
+      "max_w_core": 0.8,
+      "max_w_alt": 0.25,
+      "vol_lb": 20,
+      "target_vol": 0.65,
+      "rebalance_every": 1,
+      "regime_sma": 240,
+      "risk_off_exposure": 0.8,
+      "atr_period": 14,
+      "fee": 0.001,
+      "slip": 0.0005
+    },
+    "metrics": {
+      "60": {
+        "return_pct": 0.46,
+        "cagr_pct": 2.83,
+        "max_drawdown_pct": -0.12,
+        "sharpe": 1.925,
+        "avg_daily_turnover": 0.0267
+      },
+      "120": {
+        "return_pct": 0.46,
+        "cagr_pct": 1.4,
+        "max_drawdown_pct": -0.12,
+        "sharpe": 1.358,
+        "avg_daily_turnover": 0.0133
+      },
+      "180": {
+        "return_pct": -1.37,
+        "cagr_pct": -2.76,
+        "max_drawdown_pct": -6.52,
+        "sharpe": -0.176,
+        "avg_daily_turnover": 0.0577
+      },
+      "365": {
+        "return_pct": 61.6,
+        "cagr_pct": 61.6,
+        "max_drawdown_pct": -15.55,
+        "sharpe": 1.83,
+        "avg_daily_turnover": 0.0792
+      },
+      "730": {
+        "return_pct": 89.59,
+        "cagr_pct": 37.69,
+        "max_drawdown_pct": -15.55,
+        "sharpe": 1.374,
+        "avg_daily_turnover": 0.0829
+      }
+    }
+  },
+  "best": {
+    "score": 0.4324,
+    "satisfied": false,
+    "params": {
+      "lb_fast": 40,
+      "lb_slow": 50,
+      "sma_filter": 120,
+      "k": 1,
+      "atr_mult": 3.8,
+      "max_w_core": 0.8,
+      "max_w_alt": 0.5,
+      "vol_lb": 20,
+      "target_vol": 0.45,
+      "rebalance_every": 5,
+      "regime_sma": 240,
+      "risk_off_exposure": 1.0,
+      "atr_period": 14,
+      "fee": 0.001,
+      "slip": 0.0005
+    },
+    "metrics": {
+      "60": {
+        "return_pct": 0.0,
+        "cagr_pct": 0.0,
+        "max_drawdown_pct": 0.0,
+        "sharpe": 0.0,
+        "avg_daily_turnover": 0.0
+      },
+      "120": {
+        "return_pct": 3.02,
+        "cagr_pct": 9.48,
+        "max_drawdown_pct": -0.47,
+        "sharpe": 2.125,
+        "avg_daily_turnover": 0.0083
+      },
+      "180": {
+        "return_pct": 2.12,
+        "cagr_pct": 4.34,
+        "max_drawdown_pct": -13.46,
+        "sharpe": 0.302,
+        "avg_daily_turnover": 0.0233
+      },
+      "365": {
+        "return_pct": 50.99,
+        "cagr_pct": 50.99,
+        "max_drawdown_pct": -18.35,
+        "sharpe": 1.546,
+        "avg_daily_turnover": 0.0402
+      },
+      "730": {
+        "return_pct": -8.93,
+        "cagr_pct": -4.57,
+        "max_drawdown_pct": -46.95,
+        "sharpe": 0.005,
+        "avg_daily_turnover": 0.0547
+      }
+    }
+  },
+  "satisfied": false,
+  "updated_profile": "aggressive",
+  "elapsed_sec": 372.35,
+  "round_details": [
+    {
+      "round": 1,
+      "candidate_count": 1000,
+      "improved": false,
+      "best_score": 0.388125,
+      "round_best_score": 0.388125,
+      "best_satisfied": false,
+      "top3": [
+        {
+          "score": 0.3881,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 15,
+            "lb_slow": 80,
+            "sma_filter": 80,
+            "k": 1,
+            "atr_mult": 3.2,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.25,
+            "vol_lb": 20,
+            "target_vol": 0.65,
+            "rebalance_every": 1,
+            "regime_sma": 240,
+            "risk_off_exposure": 0.8,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.46,
+              "cagr_pct": 2.83,
+              "max_drawdown_pct": -0.12,
+              "sharpe": 1.925,
+              "avg_daily_turnover": 0.0267
+            },
+            "120": {
+              "return_pct": 0.46,
+              "cagr_pct": 1.4,
+              "max_drawdown_pct": -0.12,
+              "sharpe": 1.358,
+              "avg_daily_turnover": 0.0133
+            },
+            "180": {
+              "return_pct": -1.37,
+              "cagr_pct": -2.76,
+              "max_drawdown_pct": -6.52,
+              "sharpe": -0.176,
+              "avg_daily_turnover": 0.0577
+            },
+            "365": {
+              "return_pct": 61.6,
+              "cagr_pct": 61.6,
+              "max_drawdown_pct": -15.55,
+              "sharpe": 1.83,
+              "avg_daily_turnover": 0.0792
+            },
+            "730": {
+              "return_pct": 89.59,
+              "cagr_pct": 37.69,
+              "max_drawdown_pct": -15.55,
+              "sharpe": 1.374,
+              "avg_daily_turnover": 0.0829
+            }
+          }
+        },
+        {
+          "score": 0.3881,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 15,
+            "lb_slow": 80,
+            "sma_filter": 80,
+            "k": 1,
+            "atr_mult": 2.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.25,
+            "vol_lb": 20,
+            "target_vol": 0.65,
+            "rebalance_every": 1,
+            "regime_sma": 200,
+            "risk_off_exposure": 0.8,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.46,
+              "cagr_pct": 2.83,
+              "max_drawdown_pct": -0.12,
+              "sharpe": 1.925,
+              "avg_daily_turnover": 0.0267
+            },
+            "120": {
+              "return_pct": 0.46,
+              "cagr_pct": 1.4,
+              "max_drawdown_pct": -0.12,
+              "sharpe": 1.358,
+              "avg_daily_turnover": 0.0133
+            },
+            "180": {
+              "return_pct": -1.37,
+              "cagr_pct": -2.76,
+              "max_drawdown_pct": -6.52,
+              "sharpe": -0.176,
+              "avg_daily_turnover": 0.0577
+            },
+            "365": {
+              "return_pct": 61.6,
+              "cagr_pct": 61.6,
+              "max_drawdown_pct": -15.55,
+              "sharpe": 1.83,
+              "avg_daily_turnover": 0.0792
+            },
+            "730": {
+              "return_pct": 90.86,
+              "cagr_pct": 38.15,
+              "max_drawdown_pct": -15.55,
+              "sharpe": 1.388,
+              "avg_daily_turnover": 0.0829
+            }
+          }
+        },
+        {
+          "score": 0.3881,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 15,
+            "lb_slow": 80,
+            "sma_filter": 80,
+            "k": 1,
+            "atr_mult": 3.2,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.25,
+            "vol_lb": 20,
+            "target_vol": 0.65,
+            "rebalance_every": 1,
+            "regime_sma": 240,
+            "risk_off_exposure": 0.8,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.46,
+              "cagr_pct": 2.83,
+              "max_drawdown_pct": -0.12,
+              "sharpe": 1.925,
+              "avg_daily_turnover": 0.0267
+            },
+            "120": {
+              "return_pct": 0.46,
+              "cagr_pct": 1.4,
+              "max_drawdown_pct": -0.12,
+              "sharpe": 1.358,
+              "avg_daily_turnover": 0.0133
+            },
+            "180": {
+              "return_pct": -1.37,
+              "cagr_pct": -2.76,
+              "max_drawdown_pct": -6.52,
+              "sharpe": -0.176,
+              "avg_daily_turnover": 0.0577
+            },
+            "365": {
+              "return_pct": 61.6,
+              "cagr_pct": 61.6,
+              "max_drawdown_pct": -15.55,
+              "sharpe": 1.83,
+              "avg_daily_turnover": 0.0792
+            },
+            "730": {
+              "return_pct": 89.59,
+              "cagr_pct": 37.69,
+              "max_drawdown_pct": -15.55,
+              "sharpe": 1.374,
+              "avg_daily_turnover": 0.0829
+            }
+          }
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "candidate_count": 1000,
+      "improved": false,
+      "best_score": 0.388125,
+      "round_best_score": 0.388125,
+      "best_satisfied": false,
+      "top3": [
+        {
+          "score": 0.3881,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 15,
+            "lb_slow": 80,
+            "sma_filter": 80,
+            "k": 1,
+            "atr_mult": 3.2,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.25,
+            "vol_lb": 20,
+            "target_vol": 0.65,
+            "rebalance_every": 1,
+            "regime_sma": 240,
+            "risk_off_exposure": 0.8,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.46,
+              "cagr_pct": 2.83,
+              "max_drawdown_pct": -0.12,
+              "sharpe": 1.925,
+              "avg_daily_turnover": 0.0267
+            },
+            "120": {
+              "return_pct": 0.46,
+              "cagr_pct": 1.4,
+              "max_drawdown_pct": -0.12,
+              "sharpe": 1.358,
+              "avg_daily_turnover": 0.0133
+            },
+            "180": {
+              "return_pct": -1.37,
+              "cagr_pct": -2.76,
+              "max_drawdown_pct": -6.52,
+              "sharpe": -0.176,
+              "avg_daily_turnover": 0.0577
+            },
+            "365": {
+              "return_pct": 61.6,
+              "cagr_pct": 61.6,
+              "max_drawdown_pct": -15.55,
+              "sharpe": 1.83,
+              "avg_daily_turnover": 0.0792
+            },
+            "730": {
+              "return_pct": 89.59,
+              "cagr_pct": 37.69,
+              "max_drawdown_pct": -15.55,
+              "sharpe": 1.374,
+              "avg_daily_turnover": 0.0829
+            }
+          }
+        },
+        {
+          "score": 0.3881,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 15,
+            "lb_slow": 80,
+            "sma_filter": 80,
+            "k": 1,
+            "atr_mult": 3.2,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.25,
+            "vol_lb": 20,
+            "target_vol": 0.65,
+            "rebalance_every": 1,
+            "regime_sma": 240,
+            "risk_off_exposure": 0.8,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.46,
+              "cagr_pct": 2.83,
+              "max_drawdown_pct": -0.12,
+              "sharpe": 1.925,
+              "avg_daily_turnover": 0.0267
+            },
+            "120": {
+              "return_pct": 0.46,
+              "cagr_pct": 1.4,
+              "max_drawdown_pct": -0.12,
+              "sharpe": 1.358,
+              "avg_daily_turnover": 0.0133
+            },
+            "180": {
+              "return_pct": -1.37,
+              "cagr_pct": -2.76,
+              "max_drawdown_pct": -6.52,
+              "sharpe": -0.176,
+              "avg_daily_turnover": 0.0577
+            },
+            "365": {
+              "return_pct": 61.6,
+              "cagr_pct": 61.6,
+              "max_drawdown_pct": -15.55,
+              "sharpe": 1.83,
+              "avg_daily_turnover": 0.0792
+            },
+            "730": {
+              "return_pct": 89.59,
+              "cagr_pct": 37.69,
+              "max_drawdown_pct": -15.55,
+              "sharpe": 1.374,
+              "avg_daily_turnover": 0.0829
+            }
+          }
+        },
+        {
+          "score": 0.3881,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 15,
+            "lb_slow": 80,
+            "sma_filter": 80,
+            "k": 1,
+            "atr_mult": 3.2,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.25,
+            "vol_lb": 20,
+            "target_vol": 0.65,
+            "rebalance_every": 1,
+            "regime_sma": 240,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.46,
+              "cagr_pct": 2.83,
+              "max_drawdown_pct": -0.12,
+              "sharpe": 1.925,
+              "avg_daily_turnover": 0.0267
+            },
+            "120": {
+              "return_pct": 0.46,
+              "cagr_pct": 1.4,
+              "max_drawdown_pct": -0.12,
+              "sharpe": 1.358,
+              "avg_daily_turnover": 0.0133
+            },
+            "180": {
+              "return_pct": -1.37,
+              "cagr_pct": -2.76,
+              "max_drawdown_pct": -6.52,
+              "sharpe": -0.176,
+              "avg_daily_turnover": 0.0577
+            },
+            "365": {
+              "return_pct": 61.6,
+              "cagr_pct": 61.6,
+              "max_drawdown_pct": -15.55,
+              "sharpe": 1.83,
+              "avg_daily_turnover": 0.0792
+            },
+            "730": {
+              "return_pct": 89.59,
+              "cagr_pct": 37.69,
+              "max_drawdown_pct": -15.55,
+              "sharpe": 1.374,
+              "avg_daily_turnover": 0.0829
+            }
+          }
+        }
+      ]
+    },
+    {
+      "round": 3,
+      "candidate_count": 1000,
+      "improved": true,
+      "best_score": 0.416052,
+      "round_best_score": 0.416052,
+      "best_satisfied": false,
+      "top3": [
+        {
+          "score": 0.4161,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.7,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 200,
+            "risk_off_exposure": 0.8,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 45.25,
+              "cagr_pct": 45.25,
+              "max_drawdown_pct": -18.26,
+              "sharpe": 1.476,
+              "avg_daily_turnover": 0.0374
+            },
+            "730": {
+              "return_pct": -10.81,
+              "cagr_pct": -5.56,
+              "max_drawdown_pct": -46.46,
+              "sharpe": -0.039,
+              "avg_daily_turnover": 0.0521
+            }
+          }
+        },
+        {
+          "score": 0.3881,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 15,
+            "lb_slow": 80,
+            "sma_filter": 80,
+            "k": 1,
+            "atr_mult": 3.2,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.25,
+            "vol_lb": 20,
+            "target_vol": 0.65,
+            "rebalance_every": 1,
+            "regime_sma": 240,
+            "risk_off_exposure": 0.8,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.46,
+              "cagr_pct": 2.83,
+              "max_drawdown_pct": -0.12,
+              "sharpe": 1.925,
+              "avg_daily_turnover": 0.0267
+            },
+            "120": {
+              "return_pct": 0.46,
+              "cagr_pct": 1.4,
+              "max_drawdown_pct": -0.12,
+              "sharpe": 1.358,
+              "avg_daily_turnover": 0.0133
+            },
+            "180": {
+              "return_pct": -1.37,
+              "cagr_pct": -2.76,
+              "max_drawdown_pct": -6.52,
+              "sharpe": -0.176,
+              "avg_daily_turnover": 0.0577
+            },
+            "365": {
+              "return_pct": 61.6,
+              "cagr_pct": 61.6,
+              "max_drawdown_pct": -15.55,
+              "sharpe": 1.83,
+              "avg_daily_turnover": 0.0792
+            },
+            "730": {
+              "return_pct": 89.59,
+              "cagr_pct": 37.69,
+              "max_drawdown_pct": -15.55,
+              "sharpe": 1.374,
+              "avg_daily_turnover": 0.0829
+            }
+          }
+        },
+        {
+          "score": 0.3881,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 15,
+            "lb_slow": 80,
+            "sma_filter": 80,
+            "k": 1,
+            "atr_mult": 3.2,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.25,
+            "vol_lb": 20,
+            "target_vol": 0.65,
+            "rebalance_every": 1,
+            "regime_sma": 240,
+            "risk_off_exposure": 0.8,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.46,
+              "cagr_pct": 2.83,
+              "max_drawdown_pct": -0.12,
+              "sharpe": 1.925,
+              "avg_daily_turnover": 0.0267
+            },
+            "120": {
+              "return_pct": 0.46,
+              "cagr_pct": 1.4,
+              "max_drawdown_pct": -0.12,
+              "sharpe": 1.358,
+              "avg_daily_turnover": 0.0133
+            },
+            "180": {
+              "return_pct": -1.37,
+              "cagr_pct": -2.76,
+              "max_drawdown_pct": -6.52,
+              "sharpe": -0.176,
+              "avg_daily_turnover": 0.0577
+            },
+            "365": {
+              "return_pct": 61.6,
+              "cagr_pct": 61.6,
+              "max_drawdown_pct": -15.55,
+              "sharpe": 1.83,
+              "avg_daily_turnover": 0.0792
+            },
+            "730": {
+              "return_pct": 89.59,
+              "cagr_pct": 37.69,
+              "max_drawdown_pct": -15.55,
+              "sharpe": 1.374,
+              "avg_daily_turnover": 0.0829
+            }
+          }
+        }
+      ]
+    },
+    {
+      "round": 4,
+      "candidate_count": 1000,
+      "improved": true,
+      "best_score": 0.43239,
+      "round_best_score": 0.43239,
+      "best_satisfied": false,
+      "top3": [
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        },
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 200,
+            "risk_off_exposure": 0.8,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        },
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 200,
+            "risk_off_exposure": 0.8,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        }
+      ]
+    },
+    {
+      "round": 5,
+      "candidate_count": 1000,
+      "improved": false,
+      "best_score": 0.43239,
+      "round_best_score": 0.43239,
+      "best_satisfied": false,
+      "top3": [
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        },
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 200,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        },
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        }
+      ]
+    },
+    {
+      "round": 6,
+      "candidate_count": 1000,
+      "improved": false,
+      "best_score": 0.43239,
+      "round_best_score": 0.43239,
+      "best_satisfied": false,
+      "top3": [
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        },
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        },
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        }
+      ]
+    },
+    {
+      "round": 7,
+      "candidate_count": 1000,
+      "improved": false,
+      "best_score": 0.43239,
+      "round_best_score": 0.43239,
+      "best_satisfied": false,
+      "top3": [
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        },
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 0.8,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        },
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        }
+      ]
+    },
+    {
+      "round": 8,
+      "candidate_count": 1000,
+      "improved": false,
+      "best_score": 0.43239,
+      "round_best_score": 0.43239,
+      "best_satisfied": false,
+      "top3": [
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        },
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        },
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 0.8,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        }
+      ]
+    },
+    {
+      "round": 9,
+      "candidate_count": 1000,
+      "improved": false,
+      "best_score": 0.43239,
+      "round_best_score": 0.43239,
+      "best_satisfied": false,
+      "top3": [
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        },
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 200,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        },
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 0.8,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        }
+      ]
+    },
+    {
+      "round": 10,
+      "candidate_count": 1000,
+      "improved": false,
+      "best_score": 0.43239,
+      "round_best_score": 0.43239,
+      "best_satisfied": false,
+      "top3": [
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 0.8,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        },
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        },
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        }
+      ]
+    },
+    {
+      "round": 11,
+      "candidate_count": 1000,
+      "improved": false,
+      "best_score": 0.43239,
+      "round_best_score": 0.43239,
+      "best_satisfied": false,
+      "top3": [
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        },
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        },
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        }
+      ]
+    },
+    {
+      "round": 12,
+      "candidate_count": 1000,
+      "improved": false,
+      "best_score": 0.43239,
+      "round_best_score": 0.43239,
+      "best_satisfied": false,
+      "top3": [
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 0.8,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        },
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        },
+        {
+          "score": 0.4324,
+          "satisfied": false,
+          "params": {
+            "lb_fast": 40,
+            "lb_slow": 50,
+            "sma_filter": 120,
+            "k": 1,
+            "atr_mult": 3.8,
+            "max_w_core": 0.8,
+            "max_w_alt": 0.5,
+            "vol_lb": 20,
+            "target_vol": 0.45,
+            "rebalance_every": 5,
+            "regime_sma": 240,
+            "risk_off_exposure": 1.0,
+            "atr_period": 14,
+            "fee": 0.001,
+            "slip": 0.0005
+          },
+          "metrics": {
+            "60": {
+              "return_pct": 0.0,
+              "cagr_pct": 0.0,
+              "max_drawdown_pct": 0.0,
+              "sharpe": 0.0,
+              "avg_daily_turnover": 0.0
+            },
+            "120": {
+              "return_pct": 3.02,
+              "cagr_pct": 9.48,
+              "max_drawdown_pct": -0.47,
+              "sharpe": 2.125,
+              "avg_daily_turnover": 0.0083
+            },
+            "180": {
+              "return_pct": 2.12,
+              "cagr_pct": 4.34,
+              "max_drawdown_pct": -13.46,
+              "sharpe": 0.302,
+              "avg_daily_turnover": 0.0233
+            },
+            "365": {
+              "return_pct": 50.99,
+              "cagr_pct": 50.99,
+              "max_drawdown_pct": -18.35,
+              "sharpe": 1.546,
+              "avg_daily_turnover": 0.0402
+            },
+            "730": {
+              "return_pct": -8.93,
+              "cagr_pct": -4.57,
+              "max_drawdown_pct": -46.95,
+              "sharpe": 0.005,
+              "avg_daily_turnover": 0.0547
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
