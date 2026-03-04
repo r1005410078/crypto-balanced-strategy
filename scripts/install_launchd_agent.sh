@@ -4,15 +4,16 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 DST_PLIST="$HOME/Library/LaunchAgents/com.crypto-balanced-strategy.auto.plist"
 LABEL="com.crypto-balanced-strategy.auto"
-VARIANT="balanced"
+VARIANT="adaptive"
 KICKSTART="false"
 
 usage() {
   cat <<'EOF'
 Usage:
-  bash scripts/install_launchd_agent.sh [balanced|conservative|aggressive|adaptive]
-  bash scripts/install_launchd_agent.sh --variant [balanced|conservative|aggressive|adaptive]
+  bash scripts/install_launchd_agent.sh [adaptive|balanced|conservative|aggressive]
+  bash scripts/install_launchd_agent.sh --variant [adaptive|balanced|conservative|aggressive]
   bash scripts/install_launchd_agent.sh [--variant adaptive] [--kickstart|--no-kickstart]
+Default variant: adaptive (dual-sleeve unattended production path).
 EOF
 }
 

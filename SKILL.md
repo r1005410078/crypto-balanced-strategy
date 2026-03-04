@@ -338,6 +338,7 @@ bash scripts/install_launchd_agent.sh adaptive --kickstart
 Note: installer auto-detects current `python3` path and writes it into the LaunchAgent plist.
 Note: installer defaults to `--no-kickstart` (safe install/reload without immediate live run).
 Note: if `TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_IDS` are set when running installer, they are written into LaunchAgent env.
+Note: installer default variant is now `adaptive` (if variant is omitted).
 Note: `adaptive` template is the current production template (`auto_dual_cycle.py`, `--aggressive-ratio 0.3`, `StartInterval=1800`).
 
 3.13 Dual-sleeve adaptive auto-switch run (recommended unattended mode):
