@@ -6,6 +6,14 @@ __pycache__/
 .DS_Store
 
 # Runtime rolling artifacts (keep stable state files tracked separately)
+cache/*.json
+results/*.lock
+results/auto_state.json
+results/auto_tier_state.json
+results/profile_switch_state.json
+results/auto_dual_state.json
+
+# Runtime rolling artifacts
 results/auto_cycle_*.json
 results/auto_tier_*.json
 results/auto_dual_cycle_*.json
