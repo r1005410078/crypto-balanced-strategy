@@ -37,10 +37,80 @@ def _merge_balances(*rows):
     return out
 
 
-def _build_live_holdings_snapshot(client, *, include_funding=True):
-    spot_balances = client.get_spot_balances()
+def _extract_trade_balance_components(client):
+    """
+    Extract multiple balance views from /account/balance details.
+
+    Returns maps keyed by ccy:
+    - available: availBal (>0)
+    - cash: cashBal (>0)
+    - equity: eq (>0)  # includes strategy-occupied balance
+    - strategy: stgyEq (>0)
+    - frozen: frozenBal (>0)
+    """
+    rows = client._request("GET", "/api/v5/account/balance", auth=True)
+    row = rows[0] if rows else {}
+    details = row.get("details", []) if isinstance(row, dict) else []
+
+    available = {}
+    cash = {}
+    equity = {}
+    strategy = {}
+    frozen = {}
+
+    for d in details:
+        ccy = str(d.get("ccy", "")).upper()
+        if not ccy:
+            continue
+        avail = _safe_float(d.get("availBal"), 0.0)
+        cash_bal = _safe_float(d.get("cashBal"), 0.0)
+        eq = _safe_float(d.get("eq"), 0.0)
+        stgy = _safe_float(d.get("stgyEq"), 0.0)
+        frz = _safe_float(d.get("frozenBal"), 0.0)
+
+        if avail > 0:
+            available[ccy] = available.get(ccy, 0.0) + avail
+        if cash_bal > 0:
+            cash[ccy] = cash.get(ccy, 0.0) + cash_bal
+        if eq > 0:
+            equity[ccy] = equity.get(ccy, 0.0) + eq
+        if stgy > 0:
+            strategy[ccy] = strategy.get(ccy, 0.0) + stgy
+        if frz > 0:
+            frozen[ccy] = frozen.get(ccy, 0.0) + frz
+
+    return {
+        "available": available,
+        "cash": cash,
+        "equity": equity,
+        "strategy": strategy,
+        "frozen": frozen,
+        "total_eq_usdt_api": _safe_float(row.get("totalEq"), 0.0),
+        "u_time_api": row.get("uTime"),
+    }
+
+
+def _build_live_holdings_snapshot(client, *, include_funding=True, include_strategy_equity=True):
+    try:
+        trade_components = _extract_trade_balance_components(client)
+    except Exception:
+        # Fallback for non-OKX test doubles or partial API failures.
+        spot_balances = client.get_spot_balances()
+        trade_components = {
+            "available": dict(spot_balances),
+            "cash": dict(spot_balances),
+            "equity": dict(spot_balances),
+            "strategy": {},
+            "frozen": {},
+            "total_eq_usdt_api": 0.0,
+            "u_time_api": None,
+        }
+
+    trade_balances = (
+        trade_components["equity"] if include_strategy_equity else trade_components["available"]
+    )
     funding_balances = client.get_funding_balances() if include_funding else {}
-    balances = _merge_balances(spot_balances, funding_balances)
+    balances = _merge_balances(trade_balances, funding_balances)
     assets = []
     unpriced_assets = []
     total = 0.0
@@ -78,7 +148,16 @@ def _build_live_holdings_snapshot(client, *, include_funding=True):
         "snapshot_date": now.date().isoformat(),
         "snapshot_time_local": now.isoformat(),
         "include_funding": bool(include_funding),
-        "trade_balances": spot_balances,
+        "include_strategy_equity": bool(include_strategy_equity),
+        "trade_balance_basis": "equity" if include_strategy_equity else "available",
+        "trade_balances": trade_balances,
+        "trade_balances_available": trade_components["available"],
+        "trade_balances_cash": trade_components["cash"],
+        "trade_balances_equity": trade_components["equity"],
+        "trade_balances_strategy": trade_components["strategy"],
+        "trade_balances_frozen": trade_components["frozen"],
+        "trade_total_eq_usdt_api": trade_components["total_eq_usdt_api"],
+        "trade_u_time_api": trade_components["u_time_api"],
         "funding_balances": funding_balances,
         "assets": assets,
         "unpriced_assets": unpriced_assets,
@@ -108,6 +187,7 @@ def _load_holdings_data(
     include_funding,
     live_base_url,
     live_user_agent,
+    include_strategy_equity=True,
     client_factory=OkxClient,
 ):
     live_error = None
@@ -118,7 +198,11 @@ def _load_holdings_data(
                 user_agent=live_user_agent,
                 client_factory=client_factory,
             )
-            snapshot = _build_live_holdings_snapshot(client, include_funding=include_funding)
+            snapshot = _build_live_holdings_snapshot(
+                client,
+                include_funding=include_funding,
+                include_strategy_equity=include_strategy_equity,
+            )
             return snapshot, "okx_live", None
         except Exception as e:
             live_error = str(e)
@@ -426,6 +510,12 @@ def main():
         default=True,
         help="Include funding account balances for live holdings.",
     )
+    p.add_argument(
+        "--holdings-include-strategy-equity",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Include strategy-occupied trading equity (eq/stgyEq) in live holdings snapshot valuation.",
+    )
     p.add_argument("--holdings-live-base-url", type=str, default="https://www.okx.com")
     p.add_argument("--holdings-live-user-agent", type=str, default=None)
     p.add_argument(
@@ -447,6 +537,7 @@ def main():
         skill_root=skill_root,
         holdings_source=args.holdings_source,
         include_funding=args.holdings_include_funding,
+        include_strategy_equity=args.holdings_include_strategy_equity,
         live_base_url=args.holdings_live_base_url,
         live_user_agent=args.holdings_live_user_agent,
     )

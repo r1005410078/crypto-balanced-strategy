@@ -1,22 +1,68 @@
 {
   "snapshot_source": "okx_live",
-  "snapshot_date": "2026-03-03",
-  "snapshot_time_local": "2026-03-03T18:17:54.411105",
+  "snapshot_date": "2026-03-05",
+  "snapshot_time_local": "2026-03-05T15:46:51.785414",
   "include_funding": true,
+  "include_strategy_equity": true,
+  "trade_balance_basis": "equity",
   "trade_balances": {
-    "USDT": 595.518734173575
+    "USDT": 1061.2668869415754,
+    "BTC": 0.004520268546,
+    "SOL": 7.3023621e-09
   },
+  "trade_balances_available": {
+    "USDT": 990.5348914881938,
+    "SOL": 7.3023621e-09
+  },
+  "trade_balances_cash": {
+    "USDT": 990.5348914881938,
+    "SOL": 7.3023621e-09
+  },
+  "trade_balances_equity": {
+    "USDT": 1061.2668869415754,
+    "BTC": 0.004520268546,
+    "SOL": 7.3023621e-09
+  },
+  "trade_balances_strategy": {
+    "USDT": 70.73199545338153,
+    "BTC": 0.004520271484
+  },
+  "trade_balances_frozen": {
+    "USDT": 70.73199545338153,
+    "BTC": 0.004520271484
+  },
+  "trade_total_eq_usdt_api": 1387.787050244914,
+  "trade_u_time_api": "1772696810899",
   "funding_balances": {
-    "USDT": 804.415009694
+    "USDT": 0.07553283,
+    "XAUT": 9.34e-07
   },
   "assets": [
     {
+      "symbol": "BTC",
+      "quantity": 0.004520268546,
+      "estimated_price_usdt": 72218.1,
+      "estimated_value_usdt": 326.4452058818826
+    },
+    {
+      "symbol": "SOL",
+      "quantity": 7.3023621e-09,
+      "estimated_price_usdt": 90.56,
+      "estimated_value_usdt": 6.61301911776e-07
+    },
+    {
       "symbol": "USDT",
-      "quantity": 1399.933743867575,
+      "quantity": 1061.3424197715754,
       "estimated_price_usdt": 1.0,
-      "estimated_value_usdt": 1399.933743867575
+      "estimated_value_usdt": 1061.3424197715754
+    },
+    {
+      "symbol": "XAUT",
+      "quantity": 9.34e-07,
+      "estimated_price_usdt": 5129.8,
+      "estimated_value_usdt": 0.0047912332
     }
   ],
   "unpriced_assets": [],
-  "total_estimated_value_usdt": 1399.933743867575
+  "total_estimated_value_usdt": 1387.7924175479598
 }

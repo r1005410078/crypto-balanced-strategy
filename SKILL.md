@@ -253,6 +253,7 @@ python3 scripts/daily_execution_report.py --capital-cny 10000 --format text
 Holdings data source behavior (default):
 - `--holdings-source auto`: try OKX live balances first, fallback to `portfolio_snapshot.json` if API/env is unavailable
 - live holdings include funding account by default (`--holdings-include-funding`, disable with `--no-holdings-include-funding`)
+- live holdings include strategy-occupied trading equity by default (`--holdings-include-strategy-equity`, disable with `--no-holdings-include-strategy-equity`)
 - when live holdings are used, `portfolio_snapshot.json` is auto-refreshed by default (`--sync-holdings-snapshot`, disable with `--no-sync-holdings-snapshot`)
 
 3.8 Execute strategy allocation on OKX (safe default: dry-run):

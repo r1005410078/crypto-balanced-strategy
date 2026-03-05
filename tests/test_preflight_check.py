@@ -56,8 +56,11 @@ class PreflightCheckTests(unittest.TestCase):
             (root / "scripts" / "auto_cycle.py").write_text("x=1\n")
             (root / "scripts" / "auto_daemon.py").write_text("x=1\n")
             (root / "scripts" / "auto_tier_cycle.py").write_text("x=1\n")
+            (root / "scripts" / "auto_dual_cycle.py").write_text("x=1\n")
             (root / "scripts" / "health_check_dryrun.py").write_text("x=1\n")
             (root / "scripts" / "okx_hot_strategy_advisor.py").write_text("x=1\n")
+            (root / "scripts" / "com.crypto-balanced-strategy.auto.adaptive.plist").write_text("<plist/>\n")
+            (root / "scripts" / "install_launchd_agent.sh").write_text("#!/usr/bin/env bash\n")
 
             out = run_preflight(root, check_okx=False)
             self.assertTrue(out["summary"]["ready_core"])

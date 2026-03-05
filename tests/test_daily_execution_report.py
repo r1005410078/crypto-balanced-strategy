@@ -36,6 +36,46 @@ class DailyExecutionReportTests(unittest.TestCase):
                 return {"price": 3000}
             raise ValueError(inst_id)
 
+    class _FakeClientWithStrategyEq:
+        def _request(self, method, path, *, params=None, payload=None, auth=False):
+            if method == "GET" and path == "/api/v5/account/balance" and auth:
+                return [
+                    {
+                        "totalEq": "520",
+                        "uTime": "1772696464000",
+                        "details": [
+                            {
+                                "ccy": "USDT",
+                                "availBal": "100",
+                                "cashBal": "100",
+                                "eq": "160",
+                                "stgyEq": "60",
+                                "frozenBal": "60",
+                            },
+                            {
+                                "ccy": "BTC",
+                                "availBal": "0",
+                                "cashBal": "0",
+                                "eq": "0.005",
+                                "stgyEq": "0.005",
+                                "frozenBal": "0.005",
+                            },
+                        ],
+                    }
+                ]
+            raise ValueError((method, path, params, payload, auth))
+
+        def get_spot_balances(self):
+            return {"USDT": 100, "BTC": 0.01}
+
+        def get_funding_balances(self):
+            return {"USDT": 10}
+
+        def get_ticker(self, inst_id):
+            if inst_id == "BTC-USDT":
+                return {"price": 70000}
+            raise ValueError(inst_id)
+
     def _base_switch_payload(self):
         return {
             "active_profile": "stable",
@@ -125,6 +165,31 @@ class DailyExecutionReportTests(unittest.TestCase):
         self.assertAlmostEqual(snap["trade_balances"]["USDT"], 100.0, places=6)
         self.assertAlmostEqual(snap["funding_balances"]["USDT"], 50.0, places=6)
         self.assertAlmostEqual(snap["total_estimated_value_usdt"], 1350.0, places=6)
+
+    def test_build_live_holdings_snapshot_includes_strategy_equity_by_default(self):
+        snap = _build_live_holdings_snapshot(
+            self._FakeClientWithStrategyEq(),
+            include_funding=True,
+        )
+        self.assertTrue(snap["include_strategy_equity"])
+        self.assertEqual(snap["trade_balance_basis"], "equity")
+        self.assertAlmostEqual(snap["trade_balances_equity"]["USDT"], 160.0, places=6)
+        self.assertAlmostEqual(snap["trade_balances_strategy"]["USDT"], 60.0, places=6)
+        self.assertAlmostEqual(snap["trade_balances_frozen"]["BTC"], 0.005, places=9)
+        # equity basis => USDT 160 + BTC 0.005*70000 + funding 10 = 520
+        self.assertAlmostEqual(snap["total_estimated_value_usdt"], 520.0, places=6)
+
+    def test_build_live_holdings_snapshot_can_exclude_strategy_equity(self):
+        snap = _build_live_holdings_snapshot(
+            self._FakeClientWithStrategyEq(),
+            include_funding=True,
+            include_strategy_equity=False,
+        )
+        self.assertFalse(snap["include_strategy_equity"])
+        self.assertEqual(snap["trade_balance_basis"], "available")
+        self.assertAlmostEqual(snap["trade_balances"]["USDT"], 100.0, places=6)
+        # available basis => USDT 100 + funding 10
+        self.assertAlmostEqual(snap["total_estimated_value_usdt"], 110.0, places=6)
 
     def test_load_holdings_data_auto_fallback_snapshot_when_env_missing(self):
         with tempfile.TemporaryDirectory() as tmp:
