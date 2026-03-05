@@ -32,3 +32,4 @@ results/risk_tune_*.json
 results/compare_local_vs_hot_*.json
 results/ensemble_*.json
 results/health_check_*.json
+results/account_equity_breakdown_*.json

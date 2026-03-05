@@ -17,6 +17,7 @@ Use this skill for: 策略设计、反复回测、参数优化、当前仓位信
 - `scripts/profile_switcher.py`: state-machine profile switcher (stable/short-balanced/shield + confirmation)
 - `scripts/tune_risk_layer.py`: constrained risk-parameter optimizer for switch layer profiles
 - `scripts/daily_execution_report.py`: one-command daily report (profile + action checklist + guardrails)
+- `scripts/account_equity_breakdown.py`: read-only OKX account details report (available vs strategy-occupied equity, funding balances, running bots)
 - `scripts/okx_auto_executor.py`: OKX spot execution bridge (reads latest signal, builds rebalance plan, dry-run/live execution with guardrails)
 - `scripts/auto_state.py`: unattended cycle state/idempotency/lock helpers
 - `scripts/risk_guard.py`: unattended live-trading risk gates and circuit-breakers
@@ -47,6 +48,7 @@ Use this skill for: 策略设计、反复回测、参数优化、当前仓位信
 - `tests/test_auto_tier_cycle.py`: adaptive tier decision regression tests
 - `tests/test_auto_dual_cycle.py`: dual-sleeve budget blend/notification policy regression tests
 - `tests/test_aggressive_opt_loop.py`: aggressive optimization loop guardrail regression tests
+- `tests/test_account_equity_breakdown.py`: account-details report parser/render regression tests
 - `tests/test_health_check_dryrun.py`: health check summary/normalization regression tests
 - `tests/test_okx_hot_strategy_advisor.py`: hot-strategy parser/scoring/budgeting regression tests
 
@@ -373,6 +375,15 @@ python3 scripts/okx_hot_strategy_advisor.py --format text
 
 # optional small sandbox even during hold_cash gate
 python3 scripts/okx_hot_strategy_advisor.py --sandbox-usdt 25 --format json
+```
+
+3.16 Read-only account equity breakdown (recommended daily audit):
+```bash
+# Human-readable summary
+python3 scripts/account_equity_breakdown.py --format text
+
+# Machine-readable JSON
+python3 scripts/account_equity_breakdown.py --format json
 ```
 
 Output:
