@@ -1,0 +1,26 @@
+# Python caches
+__pycache__/
+*.py[cod]
+
+# macOS
+.DS_Store
+
+# Runtime rolling artifacts (keep stable state files tracked separately)
+results/auto_cycle_*.json
+results/auto_tier_*.json
+results/auto_dual_cycle_*.json
+results/switch_*.json
+results/switch_dual_*.json
+results/okx_exec_*.json
+results/daily_report_*.json
+results/decision_scorecard_*.json
+results/optimize_*.json
+results/summary_*.json
+results/hot_strategy_advice_*.json
+results/signal_compare_*.json
+results/aggressive_loop_opt_*.json
+results/aggressive_opt_compare_*.json
+results/risk_tune_*.json
+results/compare_local_vs_hot_*.json
+results/ensemble_*.json
+results/health_check_*.json
